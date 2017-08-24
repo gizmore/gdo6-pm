@@ -1,0 +1,109 @@
+<?php
+namespace GDO\PM\Method;
+
+use GDO\DB\Database;
+use GDO\Form\GDO_Submit;
+use GDO\PM\GDO_PMFromTo;
+use GDO\PM\PM;
+use GDO\PM\PMMethod;
+use GDO\Table\GDO_RowNum;
+use GDO\Table\GDO_Table;
+use GDO\Table\MethodQueryTable;
+use GDO\UI\GDO_Link;
+use GDO\User\User;
+/**
+ * Trashcan features restore, delete, and empty bin.
+ * 
+ * @author gizmore
+ *
+ */
+final class Trashcan extends MethodQueryTable
+{
+	use PMMethod;
+	
+	public function isUserRequired() { return true; }
+	
+	public function getGDO() { return PM::table(); }
+	
+	public function execute()
+	{
+		if (isset($_REQUEST['delete']))
+		{
+			return $this->pmNavbar()->add($this->onDelete())->add(parent::execute());
+		}
+		elseif (isset($_REQUEST['restore']))
+		{
+			return $this->pmNavbar()->add($this->onRestore())->add(parent::execute());
+		}
+		elseif (isset($_REQUEST['trash']))
+		{
+			return $this->pmNavbar()->add($this->onEmpty())->add(parent::execute());
+		}
+		return $this->pmNavbar()->add(parent::execute());
+	}
+	
+	public function getHeaders()
+	{
+		return array(
+			GDO_RowNum::make(),
+			GDO_PMFromTo::make(),
+			GDO_Link::make('show'),
+		);
+	}
+	
+	public function getQuery()
+	{
+		$user = User::current();
+		return PM::table()->select('*')->where('pm_owner='.$user->getID())->where("pm_deleted_at IS NOT NULL");
+	}
+	
+	public function getResult()
+	{
+		return $this->filterQuery($this->getQueryPaginated())->select('*')->exec();
+	}
+	
+	public function onDecorateTable(GDO_Table $table)
+	{
+		$table->rawlabel(t('name_trashcan'));
+		$table->actions()->addFields(array(
+			GDO_Submit::make('restore')->label('btn_restore'),
+			GDO_Submit::make('delete')->label('btn_delete'),
+			GDO_Submit::make('trash')->label('btn_empty'),
+		));
+	}
+	
+	###############
+	### Actions ###
+	###############
+	public function onDelete()
+	{
+		if ($ids = $this->getRBX())
+		{
+			$user = User::current();
+			PM::table()->deleteWhere("pm_owner={$user->getID()} AND pm_id IN($ids)")->exec();
+			$affected = Database::instance()->affectedRows();
+			return $this->message('msg_pm_destroyed', [$affected]);
+		}
+	}
+	
+	public function onRestore()
+	{
+		if ($ids = $this->getRBX())
+		{
+			$user = User::current();
+			PM::table()->update()->set("pm_deleted_at = NULL")->where("pm_owner={$user->getID()} AND pm_id IN($ids)")->exec();
+			$affected = Database::instance()->affectedRows();
+			PM::updateOtherDeleted();
+			return $this->message('msg_pm_restored', [$affected]);
+		}
+	}
+	
+	public function onEmpty()
+	{
+		$user = User::current();
+		PM::table()->deleteWhere("pm_owner={$user->getID()} AND pm_deleted_at IS NOT NULL")->exec();
+		$affected = Database::instance()->affectedRows();
+		return $this->message('msg_pm_destroyed', [$affected]);
+	}
+	
+}
