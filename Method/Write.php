@@ -1,22 +1,22 @@
 <?php
 namespace GDO\PM\Method;
 
-use GDO\Core\GDO_Hook;
+use GDO\Core\GDT_Hook;
 use GDO\Date\Time;
-use GDO\Form\GDO_AntiCSRF;
-use GDO\Form\GDO_Form;
-use GDO\Form\GDO_Submit;
+use GDO\Form\GDT_AntiCSRF;
+use GDO\Form\GDT_Form;
+use GDO\Form\GDT_Submit;
 use GDO\Form\MethodForm;
 use GDO\PM\EMailOnPM;
 use GDO\PM\Module_PM;
 use GDO\PM\PM;
 use GDO\PM\PMFolder;
 use GDO\PM\PMMethod;
-use GDO\User\GDO_User;
+use GDO\User\GDT_User;
 use GDO\User\User;
 use GDO\Util\Common;
 use GDO\Util\Strings;
-use GDO\Form\GDO_Validator;
+use GDO\Form\GDT_Validator;
 
 final class Write extends MethodForm
 {
@@ -51,17 +51,17 @@ final class Write extends MethodForm
 		return $this->pmNavbar()->add(parent::execute());
 	}
 	
-	public function createForm(GDO_Form $form)
+	public function createForm(GDT_Form $form)
 	{
 		list($username, $title, $message) = $this->initialValues();
 		$table = PM::table();
 		$form->addFields(array(
-			GDO_User::make('pm_write_to')->notNull()->var($username),
-		    GDO_Validator::make()->validator('pm_write_to', [$this, 'validateCanSend']),
+			GDT_User::make('pm_write_to')->notNull()->var($username),
+		    GDT_Validator::make()->validator('pm_write_to', [$this, 'validateCanSend']),
 			$table->gdoColumn('pm_title')->var($title),
 			$table->gdoColumn('pm_message')->var($message),
-			GDO_Submit::make(),
-			GDO_AntiCSRF::make(),
+			GDT_Submit::make(),
+			GDT_AntiCSRF::make(),
 		));
 	}
 	
@@ -82,7 +82,7 @@ final class Write extends MethodForm
 		return [$username, $title, $message];
 	}
 	
-	public function validateCanSend(GDO_Form $form, GDO_User $user, $value)
+	public function validateCanSend(GDT_Form $form, GDT_User $user, $value)
 	{
 	    if ($value === null)
 	    {
@@ -95,7 +95,7 @@ final class Write extends MethodForm
 		return true;
 	}
 	
-	public function formValidated(GDO_Form $form)
+	public function formValidated(GDT_Form $form)
 	{
 		$this->deliver(User::current(), $form->getFormValue('pm_write_to'), $form->getFormVar('pm_title'), $form->getFormVar('pm_message'), $this->reply);
 		return $this->message('msg_pm_sent');
@@ -141,7 +141,7 @@ final class Write extends MethodForm
 		{
 			$pmTo = $this->pmTo;
 			EMailOnPM::deliver($pmTo);
-			GDO_Hook::call('PMSent', $pmTo);
+			GDT_Hook::call('PMSent', $pmTo);
 		}
 	}
 }

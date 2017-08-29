@@ -1,9 +1,9 @@
 <?php
 namespace GDO\PM;
-use GDO\Type\GDO_Base;
+use GDO\Type\GDT_Base;
 use GDO\UI\WithLabel;
 
-final class GDO_PMFromTo extends GDO_Base
+final class GDT_PMFromTo extends GDT_Base
 {
     use WithLabel;
     

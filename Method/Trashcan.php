@@ -2,14 +2,14 @@
 namespace GDO\PM\Method;
 
 use GDO\DB\Database;
-use GDO\Form\GDO_Submit;
-use GDO\PM\GDO_PMFromTo;
+use GDO\Form\GDT_Submit;
+use GDO\PM\GDT_PMFromTo;
 use GDO\PM\PM;
 use GDO\PM\PMMethod;
-use GDO\Table\GDO_RowNum;
-use GDO\Table\GDO_Table;
+use GDO\Table\GDT_RowNum;
+use GDO\Table\GDT_Table;
 use GDO\Table\MethodQueryTable;
-use GDO\UI\GDO_Link;
+use GDO\UI\GDT_Link;
 use GDO\User\User;
 /**
  * Trashcan features restore, delete, and empty bin.
@@ -45,9 +45,9 @@ final class Trashcan extends MethodQueryTable
 	public function getHeaders()
 	{
 		return array(
-			GDO_RowNum::make(),
-			GDO_PMFromTo::make(),
-			GDO_Link::make('show'),
+			GDT_RowNum::make(),
+			GDT_PMFromTo::make(),
+			GDT_Link::make('show'),
 		);
 	}
 	
@@ -62,13 +62,13 @@ final class Trashcan extends MethodQueryTable
 		return $this->filterQuery($this->getQueryPaginated())->select('*')->exec();
 	}
 	
-	public function onDecorateTable(GDO_Table $table)
+	public function onDecorateTable(GDT_Table $table)
 	{
 		$table->rawlabel(t('name_trashcan'));
 		$table->actions()->addFields(array(
-			GDO_Submit::make('restore')->label('btn_restore'),
-			GDO_Submit::make('delete')->label('btn_delete'),
-			GDO_Submit::make('trash')->label('btn_empty'),
+			GDT_Submit::make('restore')->label('btn_restore'),
+			GDT_Submit::make('delete')->label('btn_delete'),
+			GDT_Submit::make('trash')->label('btn_empty'),
 		));
 	}
 	

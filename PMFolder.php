@@ -2,10 +2,10 @@
 namespace GDO\PM;
 
 use GDO\DB\GDO;
-use GDO\DB\GDO_AutoInc;
-use GDO\Type\GDO_Int;
-use GDO\Type\GDO_Name;
-use GDO\User\GDO_User;
+use GDO\DB\GDT_AutoInc;
+use GDO\Type\GDT_Int;
+use GDO\Type\GDT_Name;
+use GDO\User\GDT_User;
 use GDO\User\User;
 
 final class PMFolder extends GDO
@@ -20,10 +20,10 @@ final class PMFolder extends GDO
 	public function gdoColumns()
 	{
 		return array(
-			GDO_AutoInc::make('pmf_id'),
-			GDO_User::make('pmf_user'),
-			GDO_Name::make('pmf_name')->notNull(),
-			GDO_Int::make('pmf_count')->unsigned()->initial('0')->label('count'),
+			GDT_AutoInc::make('pmf_id'),
+			GDT_User::make('pmf_user'),
+			GDT_Name::make('pmf_name')->notNull(),
+			GDT_Int::make('pmf_count')->unsigned()->initial('0')->label('count'),
 		);
 	}
 	public function getID() { return $this->getVar('pmf_id'); }

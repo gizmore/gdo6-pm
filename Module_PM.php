@@ -2,18 +2,18 @@
 namespace GDO\PM;
 
 use GDO\Core\Module;
-use GDO\Date\GDO_Duration;
+use GDO\Date\GDT_Duration;
 use GDO\Date\Time;
 use GDO\PM\Method\Write;
-use GDO\Template\GDO_Bar;
-use GDO\Type\GDO_Checkbox;
-use GDO\Type\GDO_Int;
-use GDO\Type\GDO_Message;
-use GDO\Type\GDO_Name;
-use GDO\Type\GDO_String;
-use GDO\User\GDO_Level;
-use GDO\User\GDO_User;
-use GDO\User\GDO_Username;
+use GDO\Template\GDT_Bar;
+use GDO\Type\GDT_Checkbox;
+use GDO\Type\GDT_Int;
+use GDO\Type\GDT_Message;
+use GDO\Type\GDT_Name;
+use GDO\Type\GDT_String;
+use GDO\User\GDT_Level;
+use GDO\User\GDT_User;
+use GDO\User\GDT_Username;
 use GDO\User\User;
 
 final class Module_PM extends Module
@@ -31,32 +31,32 @@ final class Module_PM extends Module
 	public function getUserSettings()
 	{
 		return array(
-			GDO_Message::make('pm_signature')->max(1024)->label('pm_signature'),
-			GDO_Level::make('pm_level')->initial('0')->notNull()->label('pm_level'),
-			GDO_Checkbox::make('pm_email')->initial('0'),
-			GDO_Checkbox::make('pm_guests')->initial('0'),
+			GDT_Message::make('pm_signature')->max(1024)->label('pm_signature'),
+			GDT_Level::make('pm_level')->initial('0')->notNull()->label('pm_level'),
+			GDT_Checkbox::make('pm_email')->initial('0'),
+			GDT_Checkbox::make('pm_guests')->initial('0'),
 		);
 	}
 	public function getConfig()
 	{
 		return array(
-			GDO_String::make('pm_re')->initial('RE: '),
-			GDO_Int::make('pm_limit')->initial('5')->unsigned()->min(0)->max(10000),
-			GDO_Duration::make('pm_limit_timeout')->initial(Time::ONE_HOUR*16),
-			GDO_Int::make('pm_max_folders')->initial('0')->unsigned(),
-			GDO_Checkbox::make('pm_for_guests')->initial('1'),
-			GDO_Checkbox::make('pm_captcha')->initial('0'),
-			GDO_Checkbox::make('pm_causes_mail')->initial('0'),
-			GDO_User::make('pm_bot_uid')->label('pm_bot_uid'),
-			GDO_Checkbox::make('pm_own_bot')->initial('0'),
-			GDO_Int::make('pm_per_page')->initial('20')->unsigned(),
-			GDO_Checkbox::make('pm_welcome')->initial('0'),
-			GDO_Int::make('pm_sig_len')->initial('255')->max(1024)->unsigned(),
-			GDO_Int::make('pm_msg_len')->initial('2048')->max(65535)->unsigned(),
-			GDO_Int::make('pm_title_len')->initial('64')->max(255)->unsigned(),
-			GDO_Int::make('pm_fname_len')->initial(GDO_Username::LENGTH)->max(GDO_Name::LENGTH),
-			GDO_Checkbox::make('pm_delete')->initial('1'),
-			GDO_Int::make('pm_limit_per_level')->initial('1000000')->unsigned(),
+			GDT_String::make('pm_re')->initial('RE: '),
+			GDT_Int::make('pm_limit')->initial('5')->unsigned()->min(0)->max(10000),
+			GDT_Duration::make('pm_limit_timeout')->initial(Time::ONE_HOUR*16),
+			GDT_Int::make('pm_max_folders')->initial('0')->unsigned(),
+			GDT_Checkbox::make('pm_for_guests')->initial('1'),
+			GDT_Checkbox::make('pm_captcha')->initial('0'),
+			GDT_Checkbox::make('pm_causes_mail')->initial('0'),
+			GDT_User::make('pm_bot_uid')->label('pm_bot_uid'),
+			GDT_Checkbox::make('pm_own_bot')->initial('0'),
+			GDT_Int::make('pm_per_page')->initial('20')->unsigned(),
+			GDT_Checkbox::make('pm_welcome')->initial('0'),
+			GDT_Int::make('pm_sig_len')->initial('255')->max(1024)->unsigned(),
+			GDT_Int::make('pm_msg_len')->initial('2048')->max(65535)->unsigned(),
+			GDT_Int::make('pm_title_len')->initial('64')->max(255)->unsigned(),
+			GDT_Int::make('pm_fname_len')->initial(GDT_Username::LENGTH)->max(GDT_Name::LENGTH),
+			GDT_Checkbox::make('pm_delete')->initial('1'),
+			GDT_Int::make('pm_limit_per_level')->initial('1000000')->unsigned(),
 		);
 	}
 	public function cfgRE() { return $this->getConfigValue('pm_re'); }
@@ -111,7 +111,7 @@ final class Module_PM extends Module
 	##############
 	### Navbar ###
 	##############
-	public function hookRightBar(GDO_Bar $navbar)
+	public function hookRightBar(GDT_Bar $navbar)
 	{
 	    if (User::current()->isAuthenticated())
 	    {

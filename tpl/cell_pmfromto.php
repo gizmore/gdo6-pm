@@ -1,8 +1,8 @@
 <?php 
-use GDO\PM\GDO_PMFromTo;
+use GDO\PM\GDT_PMFromTo;
 use GDO\PM\PM;
 use GDO\User\User;
-$field instanceof GDO_PMFromTo;
+$field instanceof GDT_PMFromTo;
 $pm instanceof PM;
 $user = User::current();
 ?>

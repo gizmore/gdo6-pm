@@ -1,6 +1,6 @@
 <?php
-use GDO\PM\GDO_PMFromTo;
-$field instanceof GDO_PMFromTo;
+use GDO\PM\GDT_PMFromTo;
+$field instanceof GDT_PMFromTo;
 ?>
 <input
  name="f[<?= $field->name?>]"

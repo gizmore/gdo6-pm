@@ -1,10 +1,10 @@
 <?php
 namespace GDO\PM;
 
-use GDO\Form\GDO_Select;
+use GDO\Form\GDT_Select;
 use GDO\User\User;
 
-final class GDO_PMFolder extends GDO_Select
+final class GDT_PMFolder extends GDT_Select
 {
 	public function __construct()
 	{

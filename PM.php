@@ -2,20 +2,20 @@
 namespace GDO\PM;
 
 use GDO\DB\GDO;
-use GDO\DB\GDO_AutoInc;
-use GDO\DB\GDO_CreatedAt;
-use GDO\DB\GDO_DeletedAt;
-use GDO\DB\GDO_Object;
-use GDO\Date\GDO_DateTime;
+use GDO\DB\GDT_AutoInc;
+use GDO\DB\GDT_CreatedAt;
+use GDO\DB\GDT_DeletedAt;
+use GDO\DB\GDT_Object;
+use GDO\Date\GDT_DateTime;
 use GDO\Date\Time;
-use GDO\Template\GDO_Template;
-use GDO\Type\GDO_Checkbox;
-use GDO\Type\GDO_Message;
-use GDO\Type\GDO_String;
-use GDO\User\GDO_User;
+use GDO\Template\GDT_Template;
+use GDO\Type\GDT_Checkbox;
+use GDO\Type\GDT_Message;
+use GDO\Type\GDT_String;
+use GDO\User\GDT_User;
 use GDO\User\User;
 
-final class PM extends GDO # implements GDO_Searchable
+final class PM extends GDO # implements GDT_Searchable
 {
 	public function gdoCached() { return false; }
 	
@@ -25,27 +25,27 @@ final class PM extends GDO # implements GDO_Searchable
 	public function gdoColumns()
 	{
 		return array(
-			GDO_AutoInc::make('pm_id'),
-			GDO_CreatedAt::make('pm_sent_at'),
-			GDO_DeletedAt::make('pm_deleted_at'),
-			GDO_DateTime::make('pm_read_at'),
-			GDO_User::make('pm_owner')->notNull(),
-			GDO_User::make('pm_from')->cascadeNull(),
-			GDO_User::make('pm_to')->notNull(),
-			GDO_Object::make('pm_folder')->table(PMFolder::table())->notNull(),
-		    GDO_Object::make('pm_parent')->table(PM::table())->cascadeNull(),
-		    GDO_Object::make('pm_other')->table(PM::table())->cascadeNull(),
-			GDO_String::make('pm_title')->notNull()->label('title'),
-			GDO_Message::make('pm_message')->notNull(),
-			GDO_Checkbox::make('pm_other_read')->initial('0'),
-			GDO_Checkbox::make('pm_other_deleted')->initial('0'),
+			GDT_AutoInc::make('pm_id'),
+			GDT_CreatedAt::make('pm_sent_at'),
+			GDT_DeletedAt::make('pm_deleted_at'),
+			GDT_DateTime::make('pm_read_at'),
+			GDT_User::make('pm_owner')->notNull(),
+			GDT_User::make('pm_from')->cascadeNull(),
+			GDT_User::make('pm_to')->notNull(),
+			GDT_Object::make('pm_folder')->table(PMFolder::table())->notNull(),
+		    GDT_Object::make('pm_parent')->table(PM::table())->cascadeNull(),
+		    GDT_Object::make('pm_other')->table(PM::table())->cascadeNull(),
+			GDT_String::make('pm_title')->notNull()->label('title'),
+			GDT_Message::make('pm_message')->notNull(),
+			GDT_Checkbox::make('pm_other_read')->initial('0'),
+			GDT_Checkbox::make('pm_other_deleted')->initial('0'),
 		);
 	}
 	
 	##############
 	### Render ###
 	##############
-	public function renderList() { return GDO_Template::php('PM', 'listitem_pm.php', ['pm' => $this]); }
+	public function renderList() { return GDT_Template::php('PM', 'listitem_pm.php', ['pm' => $this]); }
 	
 	##################
 	### Convinient ###

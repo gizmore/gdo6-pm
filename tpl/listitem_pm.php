@@ -1,6 +1,6 @@
 <?php
 use GDO\PM\PM;
-use GDO\UI\GDO_IconButton;
+use GDO\UI\GDT_IconButton;
 use GDO\User\User;
 use GDO\Avatar\Avatar;
 
@@ -18,7 +18,7 @@ $hrefDelete = href('PM', 'Overview', '&delete=1&id='.$pm->getID());
     <h4><?= html($pm->getTitle()); ?></h4>
     <p><?= t('pm_sent', [$pm->displayDate()]); ?></p>
   </div>
-  <?= GDO_IconButton::make()->icon('delete')->href($hrefDelete); ?>
+  <?= GDT_IconButton::make()->icon('delete')->href($hrefDelete); ?>
 </md-list-item>
 <?php else : ?>
 <md-list-item class="md-3-line" ng-click="null" href="<?= $href; ?>">
@@ -28,6 +28,6 @@ $hrefDelete = href('PM', 'Overview', '&delete=1&id='.$pm->getID());
     <h4><?= html($pm->getTitle()); ?></h4>
     <p><?= t('pm_received', [$pm->displayDate()]); ?></p>
   </div>
-  <?= GDO_IconButton::make()->icon('delete')->href($hrefDelete); ?>
+  <?= GDT_IconButton::make()->icon('delete')->href($hrefDelete); ?>
 </md-list-item>
 <?php endif; ?>

@@ -1,6 +1,6 @@
 <?php
 use GDO\PM\PM;
-use GDO\UI\GDO_Button;
+use GDO\UI\GDT_Button;
 
 $pm instanceof PM;
 ?>
@@ -24,7 +24,7 @@ $pm instanceof PM;
     </section>
   </md-card-content>
   <md-card-actions layout="row" layout-align="end center">
-    <?php foreach ($actions as $action) : $action instanceof GDO_Button; ?>
+    <?php foreach ($actions as $action) : $action instanceof GDT_Button; ?>
     <?= $action->renderCell(); ?>
     <?php endforeach; ?>
   </md-card-actions>
