@@ -2,7 +2,7 @@
 namespace GDO\PM;
 
 use GDO\Form\GDT_Select;
-use GDO\User\User;
+use GDO\User\GDO_User;
 
 final class GDT_PMFolder extends GDT_Select
 {
@@ -13,17 +13,17 @@ final class GDT_PMFolder extends GDT_Select
 		$this->choices($this->userChoices($user));
 	}
 	
-	public function user(User $user)
+	public function user(GDO_User $user)
 	{
 		$this->gdo($user);
 		$this->emptyLabel('choose_folder_move');
 		return $this;
 	}
 	
-	private function userChoices(User $user)
+	private function userChoices(GDO_User $user)
 	{
 		$choices = [];
-		foreach (PMFolder::getFolders($user->getID()) as $folder)
+		foreach (GDO_PMFolder::getFolders($user->getID()) as $folder)
 		{
 			$choices[$folder->getID()] = $folder->getName();
 		}

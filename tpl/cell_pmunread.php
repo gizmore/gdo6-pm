@@ -1,10 +1,10 @@
 <?php
-use GDO\PM\PM;
+use GDO\PM\GDO_PM;
 use GDO\Template\GDT_Template;
 use GDO\UI\GDT_Icon;
 $field instanceof GDT_Template;
 $pm = $field->gdo;
-$pm instanceof PM;
+$pm instanceof GDO_PM;
 ?>
 <?php if (!$pm->isRead()) : ?>
 <?= GDT_Icon::iconS('notifications_active'); ?>

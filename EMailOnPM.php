@@ -4,8 +4,8 @@ namespace GDO\PM;
 use GDO\Mail\Mail;
 use GDO\Template\Response;
 use GDO\UI\GDT_Link;
-use GDO\User\User;
-use GDO\User\UserSetting;
+use GDO\User\GDO_User;
+use GDO\User\GDO_UserSetting;
 /**
  * Sends Email on PM.
  * 
@@ -14,10 +14,10 @@ use GDO\User\UserSetting;
  */
 final class EMailOnPM
 {
-	public static function deliver(PM $pm)
+    public static function deliver(GDO_PM $pm)
 	{
 		$receiver = $pm->getReceiver();
-		if (UserSetting::userGet($receiver, 'pm_email')->getValue())
+		if (GDO_UserSetting::userGet($receiver, 'pm_email')->getValue())
 		{
 			if ($receiver->getMail())
 			{
@@ -26,14 +26,14 @@ final class EMailOnPM
 		}
 	}
 	
-	private static function sendMail(PM $pm, User $receiver)
+	private static function sendMail(GDO_PM $pm, GDO_User $receiver)
 	{
 		$sender = $pm->getSender();
 		
 		$email = new Mail();
 		$email->setSender(GWF_BOT_EMAIL);
 		$email->setSenderName(GWF_BOT_NAME);
-		if (UserSetting::userGet($sender, 'user_allow_email'))
+		if (GDO_UserSetting::userGet($sender, 'user_allow_email'))
 		{
 			$email->setReturn($sender->getMail());
 		}

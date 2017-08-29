@@ -2,7 +2,7 @@
 namespace GDO\PM\Method;
 
 use GDO\Core\Method;
-use GDO\PM\PM;
+use GDO\PM\GDO_PM;
 use GDO\PM\PMMethod;
 use GDO\Util\Common;
 
@@ -12,7 +12,7 @@ final class Delete extends Method
 	
 	public function execute()
 	{
-		if ( (!($pm = PM::getById(Common::getRequestString('pm')))) || 
+	    if ( (!($pm = GDO_PM::getById(Common::getRequestString('pm')))) || 
 				($pm->gdoHashcode() !== Common::getRequestString('token')) )
 		{
 			return $this->pmNavbar()->add($this->error('err_pm'))->add($this->execMethod('Overview'));
@@ -20,7 +20,7 @@ final class Delete extends Method
 		return $this->pmNavbar()->add($this->onDelete($pm))->add($this->execMethod('Overview'));
 	}
 	
-	public function deletePM(PM $pm)
+	public function deletePM(GDO_PM $pm)
 	{
 		$pm->saveVar('pm_deleted_at', time());
 		$pm->getOtherPM()->saveVar('pm_other_deleted', '1');

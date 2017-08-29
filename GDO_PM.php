@@ -13,9 +13,9 @@ use GDO\Type\GDT_Checkbox;
 use GDO\Type\GDT_Message;
 use GDO\Type\GDT_String;
 use GDO\User\GDT_User;
-use GDO\User\User;
+use GDO\User\GDO_User;
 
-final class PM extends GDO # implements GDT_Searchable
+final class GDO_PM extends GDO # implements GDT_Searchable
 {
 	public function gdoCached() { return false; }
 	
@@ -32,9 +32,9 @@ final class PM extends GDO # implements GDT_Searchable
 			GDT_User::make('pm_owner')->notNull(),
 			GDT_User::make('pm_from')->cascadeNull(),
 			GDT_User::make('pm_to')->notNull(),
-			GDT_Object::make('pm_folder')->table(PMFolder::table())->notNull(),
-		    GDT_Object::make('pm_parent')->table(PM::table())->cascadeNull(),
-		    GDT_Object::make('pm_other')->table(PM::table())->cascadeNull(),
+		    GDT_Object::make('pm_folder')->table(GDO_PMFolder::table())->notNull(),
+		    GDT_Object::make('pm_parent')->table(GDO_PM::table())->cascadeNull(),
+		    GDT_Object::make('pm_other')->table(GDO_PM::table())->cascadeNull(),
 			GDT_String::make('pm_title')->notNull()->label('title'),
 			GDT_Message::make('pm_message')->notNull(),
 			GDT_Checkbox::make('pm_other_read')->initial('0'),
@@ -74,10 +74,10 @@ final class PM extends GDO # implements GDT_Searchable
 	/**
 	 * Get the other user that differs from param user.
 	 * One of the two users has to match.
-	 * @param User $user
+	 * @param GDO_User $user
 	 * @return User
 	 */
-	public function getOtherUser(User $user)
+	public function getOtherUser(GDO_User $user)
 	{
 		if ($user->getID() === $this->getFromID())
 		{
@@ -90,7 +90,7 @@ final class PM extends GDO # implements GDT_Searchable
 	}
 	
 	/**
-	 * @return PM
+	 * @return self
 	 */
 	public function getOtherPM() { return $this->getValue('pm_other'); }
 
@@ -98,18 +98,18 @@ final class PM extends GDO # implements GDT_Searchable
 	public function getToID() { return $this->getVar('pm_to'); }
 	
 	/**
-	 * @return PM
+	 * @return self
 	 */
 	public function getParent() { return $this->getValue('pm_parent'); }
 	
 	/**
-	 * @param User $owner
-	 * @return PM
+	 * @param GDO_User $owner
+	 * @return self
 	 */
-	public function getPMFor(User $owner) { return $this->getOwnerID() === $owner->getID() ? $this : $this->getOtherPM(); }
+	public function getPMFor(GDO_User $owner) { return $this->getOwnerID() === $owner->getID() ? $this : $this->getOtherPM(); }
 	
-	public function isFrom(User $user) { return $this->getFromID() === $user->getID(); }
-	public function isTo(User $user) { return $this->getToID() === $user->getID(); }
+	public function isFrom(GDO_User $user) { return $this->getFromID() === $user->getID(); }
+	public function isTo(GDO_User $user) { return $this->getToID() === $user->getID(); }
 	
 	#############
 	### HREFs ###
@@ -126,11 +126,11 @@ final class PM extends GDO # implements GDT_Searchable
 	public static function updateOtherDeleted()
 	{
 		self::table()->update()->set("pm_other_deleted=1")->
-		where(" ( SELECT pm_id FROM ( SELECT * FROM gwf_pm ) b WHERE gwf_pm.pm_other = b.pm_id ) IS NULL ")->
-		or(" ( SELECT pm_deleted_at FROM ( SELECT * FROM gwf_pm ) b WHERE b.pm_id = gwf_pm.pm_other ) IS NOT NULL ")->exec();
+		where(" ( SELECT pm_id FROM ( SELECT * FROM gdo_pm ) b WHERE gdo_pm.pm_other = b.pm_id ) IS NULL ")->
+		or(" ( SELECT pm_deleted_at FROM ( SELECT * FROM gdo_pm ) b WHERE b.pm_id = gdo_pm.pm_other ) IS NOT NULL ")->exec();
 	}
 	
-	public static function getByIdAndUser(string $id, User $user)
+	public static function getByIdAndUser(string $id, GDO_User $user)
 	{
 		$id = self::quoteS($id);
 		return self::table()->select('*')->where("pm_id={$id} AND pm_owner={$user->getID()}")->exec()->fetchObject();
@@ -139,12 +139,12 @@ final class PM extends GDO # implements GDT_Searchable
 	##############
 	### Unread ###
 	##############
-	public static function countUnread(User $user)
+	public static function countUnread(GDO_User $user)
 	{
-		if (null !== ($cache = $user->tempGet('gwf_pm_unread')))
+		if (null !== ($cache = $user->tempGet('gdo_pm_unread')))
 		{
 			$cache = self::table()->countWhere("pm_to={$user->getID()} AND pm_read_at IS NULL");
-			$user->tempSet('gwf_pm_unread', $cache);
+			$user->tempSet('gdo_pm_unread', $cache);
 		}
 		return $cache;
 	}

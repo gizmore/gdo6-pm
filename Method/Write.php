@@ -9,11 +9,11 @@ use GDO\Form\GDT_Submit;
 use GDO\Form\MethodForm;
 use GDO\PM\EMailOnPM;
 use GDO\PM\Module_PM;
-use GDO\PM\PM;
-use GDO\PM\PMFolder;
+use GDO\PM\GDO_PM;
+use GDO\PM\GDO_PMFolder;
 use GDO\PM\PMMethod;
 use GDO\User\GDT_User;
-use GDO\User\User;
+use GDO\User\GDO_User;
 use GDO\Util\Common;
 use GDO\Util\Strings;
 use GDO\Form\GDT_Validator;
@@ -26,11 +26,11 @@ final class Write extends MethodForm
 	
 	public function execute()
 	{
-		$user = User::current();
+		$user = GDO_User::current();
 		$module = Module_PM::instance();
 
 		# Get in reply to
-		if ($this->reply = PM::table()->find(Common::getRequestString('reply'), false))
+		if ($this->reply = GDO_PM::table()->find(Common::getRequestString('reply'), false))
 		{
 			if ($this->reply->getOwnerID() !== $user->getID())
 			{
@@ -42,7 +42,7 @@ final class Write extends MethodForm
 		{
 			$limit = $module->cfgLimitForUser($user);
 			$cut = time() - $module->cfgLimitTimeout();
-			$sent = PM::table()->countWhere("pm_from={$user->getID()} and pm_sent_at>$cut");
+			$sent = GDO_PM::table()->countWhere("pm_from={$user->getID()} and pm_sent_at>$cut");
 			if ($sent >= $limit)
 			{
 				return $this->pmNavbar()->add($this->error('err_pm_limit_reached', [$limit, Time::displayAgeTS($cut)]));
@@ -54,7 +54,7 @@ final class Write extends MethodForm
 	public function createForm(GDT_Form $form)
 	{
 		list($username, $title, $message) = $this->initialValues();
-		$table = PM::table();
+		$table = GDO_PM::table();
 		$form->addFields(array(
 			GDT_User::make('pm_write_to')->notNull()->var($username),
 		    GDT_Validator::make()->validator('pm_write_to', [$this, 'validateCanSend']),
@@ -71,7 +71,7 @@ final class Write extends MethodForm
 		if ($this->reply)
 		{
 			# Recipient
-			$username = $this->reply->getOtherUser(User::current())->displayName();
+			$username = $this->reply->getOtherUser(GDO_User::current())->displayName();
 			# Message
 			$message= $this->reply->getVar('pm_message');
 			# Title
@@ -88,7 +88,7 @@ final class Write extends MethodForm
 	    {
 	        return $this->error('err_not_null');
 	    }
-	    if ($value->getID() === User::current()->getID())
+	    if ($value->getID() === GDO_User::current()->getID())
 	    {
 	        return $this->error('err_no_pm_self');
 	    }
@@ -97,42 +97,42 @@ final class Write extends MethodForm
 	
 	public function formValidated(GDT_Form $form)
 	{
-		$this->deliver(User::current(), $form->getFormValue('pm_write_to'), $form->getFormVar('pm_title'), $form->getFormVar('pm_message'), $this->reply);
+		$this->deliver(GDO_User::current(), $form->getFormValue('pm_write_to'), $form->getFormVar('pm_title'), $form->getFormVar('pm_message'), $this->reply);
 		return $this->message('msg_pm_sent');
 	}
 	
-	public function deliver(User $from, User $to, string $title, string $message, PM $parent=null)
+	public function deliver(GDO_User $from, GDO_User $to, string $title, string $message, GDO_PM $parent=null)
 	{
-		$pmFrom = PM::blank(array(
+	    $pmFrom = GDO_PM::blank(array(
 				'pm_parent' => $parent ? $parent->getPMFor($from)->getID() : null,
 				'pm_read_at' => Time::getDate(),
 				'pm_owner' => $from->getID(),
 				'pm_from' => $from->getID(),
 				'pm_to' => $to->getID(),
-				'pm_folder' => PMFolder::OUTBOX,
+	       	    'pm_folder' => GDO_PMFolder::OUTBOX,
 				'pm_title' => $title,
 				'pm_message' => $message,
 		))->insert();
-		$pmTo = PM::blank(array(
+		$pmTo = GDO_PM::blank(array(
 				'pm_parent' => $parent ? $parent->getPMFor($to)->getID() : null,
 				'pm_owner' => $to->getID(),
 				'pm_from' => $from->getID(),
 				'pm_to' => $to->getID(),
-				'pm_folder' => PMFolder::INBOX,
+		        'pm_folder' => GDO_PMFolder::INBOX,
 				'pm_title' => $title,
 				'pm_message' => $message,
 				'pm_other' => $pmFrom->getID(),
 				'pm_other_read' => '1',
 		))->insert();
 		$pmFrom->saveVar('pm_other', $pmTo->getID());
-		$to->tempUnset('gwf_pm_unread');
+		$to->tempUnset('gdo_pm_unread');
 		
 		# Copy to next func
 		$this->pmTo = $pmTo;
 	}
 	
 	/**
-	 * @var PM
+	 * @var GDO_PM
 	 */
 	private $pmTo;
 	public function afterExecute()

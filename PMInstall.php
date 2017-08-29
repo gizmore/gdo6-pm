@@ -2,7 +2,7 @@
 namespace GDO\PM;
 
 use GDO\Date\Time;
-use GDO\User\User;
+use GDO\User\GDO_User;
 
 final class PMInstall
 {
@@ -14,10 +14,10 @@ final class PMInstall
 	
 	private static function installFolders(Module_PM $module)
 	{
-		if (!PMFolder::table()->countWhere('true'))
+	    if (!GDO_PMFolder::table()->countWhere('true'))
 		{
-			PMFolder::blank(['pmf_name' => 'INBOX'])->insert();
-			PMFolder::blank(['pmf_name' => 'OUTBOX'])->insert();
+		    GDO_PMFolder::blank(['pmf_name' => 'INBOX'])->insert();
+		    GDO_PMFolder::blank(['pmf_name' => 'OUTBOX'])->insert();
 		}
 	}
 	
@@ -38,7 +38,7 @@ final class PMInstall
 	
 	private static function installAdminAsPMBot(Module_PM $module)
 	{
-		$users = User::withPermission('admin');
+		$users = GDO_User::withPermission('admin');
 		if ($user = @$users[0])
 		{
 			$module->saveConfigVar('pm_bot_uid', $user->getID());
@@ -47,10 +47,10 @@ final class PMInstall
 	
 	private static function installPMBot(Module_PM $module)
 	{
-		$user = User::blank(array(
+		$user = GDO_User::blank(array(
 			'user_name' => '_PM_BOT_',
 			'user_real_name' => GWF_BOT_NAME,
-			'user_type' => User::BOT,
+			'user_type' => GDO_User::BOT,
 			'user_email' => GWF_BOT_EMAIL,
 			'user_register_time' => Time::getDate(),
 		));

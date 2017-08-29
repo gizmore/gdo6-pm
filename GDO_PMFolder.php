@@ -6,9 +6,9 @@ use GDO\DB\GDT_AutoInc;
 use GDO\Type\GDT_Int;
 use GDO\Type\GDT_Name;
 use GDO\User\GDT_User;
-use GDO\User\User;
+use GDO\User\GDO_User;
 
-final class PMFolder extends GDO
+final class GDO_PMFolder extends GDO
 {
 	# Constants
 	const INBOX = 1;
@@ -42,7 +42,7 @@ final class PMFolder extends GDO
 		if (!isset($folders))
 		{
 			$folders = array_merge(
-				PMFolder::getDefaultFolders(),
+			    GDO_PMFolder::getDefaultFolders(),
 				self::table()->select('*')->where('pmf_user='.quote($userid))->exec()->fetchAllObjects()
 			);
 		}
@@ -51,10 +51,10 @@ final class PMFolder extends GDO
 	
 	/**
 	 * @param int $folderId
-	 * @param User $user
-	 * @return PMFolder
+	 * @param GDO_User $user
+	 * @return GDO_PMFolder
 	 */
-	public static function getByIdAndUser(string $folderId, User $user)
+	public static function getByIdAndUser(string $folderId, GDO_User $user)
 	{
 		$folderId = (int)$folderId;
 		switch ($folderId)
@@ -85,13 +85,13 @@ final class PMFolder extends GDO
 		static $inbox;
 		if (!isset($inbox))
 		{
-			$uid = User::current()->getID();
+			$uid = GDO_User::current()->getID();
 			$fid = self::INBOX;
 			$inbox = self::blank(array(
 				'pmf_id' => $fid,
 				'pmf_uid' => $uid,
 				'pmf_name' => t('inbox_name'),
-				'pmf_count' => PM::table()->countWhere("pm_folder=$fid AND pm_owner=$uid AND pm_deleted_at IS NULL"),
+			    'pmf_count' => GDO_PM::table()->countWhere("pm_folder=$fid AND pm_owner=$uid AND pm_deleted_at IS NULL"),
 			));
 		}
 		return $inbox;
@@ -102,13 +102,13 @@ final class PMFolder extends GDO
 		static $outbox;
 		if (!isset($outbox))
 		{
-			$uid = User::current()->getID();
+			$uid = GDO_User::current()->getID();
 			$fid = self::OUTBOX;
 			$outbox = self::blank(array(
 				'pmf_id' => $fid,
 				'pmf_uid' => $uid,
 				'pmf_name' => t('outbox_name'),
-				'pmf_count' => PM::table()->countWhere("pm_folder=$fid AND pm_owner=$uid AND pm_deleted_at IS NULL"),
+			    'pmf_count' => GDO_PM::table()->countWhere("pm_folder=$fid AND pm_owner=$uid AND pm_deleted_at IS NULL"),
 			));
 		}
 		return $outbox;

@@ -1,7 +1,7 @@
 <?php
 namespace GDO\PM;
 
-use GDO\Core\Module;
+use GDO\Core\GDO_Module;
 use GDO\Date\GDT_Duration;
 use GDO\Date\Time;
 use GDO\PM\Method\Write;
@@ -14,14 +14,14 @@ use GDO\Type\GDT_String;
 use GDO\User\GDT_Level;
 use GDO\User\GDT_User;
 use GDO\User\GDT_Username;
-use GDO\User\User;
+use GDO\User\GDO_User;
 
-final class Module_PM extends Module
+final class Module_PM extends GDO_Module
 {
 	##############
 	### Module ###
 	##############
-	public function getClasses() { return array('GDO\PM\PMFolder', 'GDO\PM\PM'); }
+	public function getClasses() { return array('GDO\PM\GDO_PMFolder', 'GDO\PM\GDO_PM'); }
 	public function onLoadLanguage() { $this->loadLanguage('lang/pm'); }
 	public function onInstall() { PMInstall::install($this); }
 	
@@ -80,7 +80,7 @@ final class Module_PM extends Module
 	public function cfgMaxFolderNameLen() { return $this->getConfigValue('pm_fname_len'); }
 	public function cfgAllowDelete() { return $this->getConfigValue('pm_delete'); }
 	public function cfgLimitPerLevel() { return $this->getConfigValue('pm_limit_per_level'); }
-	public function cfgLimitForUser(User $user)
+	public function cfgLimitForUser(GDO_User $user)
 	{
 		$min = $this->cfgPMLimit();
 		$level = $user->getLevel();
@@ -90,7 +90,7 @@ final class Module_PM extends Module
 	#############
 	### Hooks ###
 	#############
-	public function hookUserActivated(User $user)
+	public function hookUserActivated(GDO_User $user)
 	{
 		if ($this->cfgWelcomePM())
 		{
@@ -101,7 +101,7 @@ final class Module_PM extends Module
 		}
 	}
 	
-	private function sendWelcomePM(Write $method, User $from, User $to)
+	private function sendWelcomePM(Write $method, GDO_User $from, GDO_User $to)
 	{
 		$title = t('pm_welcome_title', [sitename()]);
 		$message = t('pm_welcome_message', [$to->displayName(), sitename()]);
@@ -113,7 +113,7 @@ final class Module_PM extends Module
 	##############
 	public function hookRightBar(GDT_Bar $navbar)
 	{
-	    if (User::current()->isAuthenticated())
+	    if (GDO_User::current()->isAuthenticated())
 	    {
     		$this->templatePHP('rightbar.php', ['navbar' => $navbar]);
 	    }

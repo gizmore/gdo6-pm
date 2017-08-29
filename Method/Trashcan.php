@@ -4,13 +4,13 @@ namespace GDO\PM\Method;
 use GDO\DB\Database;
 use GDO\Form\GDT_Submit;
 use GDO\PM\GDT_PMFromTo;
-use GDO\PM\PM;
+use GDO\PM\GDO_PM;
 use GDO\PM\PMMethod;
 use GDO\Table\GDT_RowNum;
 use GDO\Table\GDT_Table;
 use GDO\Table\MethodQueryTable;
 use GDO\UI\GDT_Link;
-use GDO\User\User;
+use GDO\User\GDO_User;
 /**
  * Trashcan features restore, delete, and empty bin.
  * 
@@ -23,7 +23,7 @@ final class Trashcan extends MethodQueryTable
 	
 	public function isUserRequired() { return true; }
 	
-	public function getGDO() { return PM::table(); }
+	public function getGDO() { return GDO_PM::table(); }
 	
 	public function execute()
 	{
@@ -53,8 +53,8 @@ final class Trashcan extends MethodQueryTable
 	
 	public function getQuery()
 	{
-		$user = User::current();
-		return PM::table()->select('*')->where('pm_owner='.$user->getID())->where("pm_deleted_at IS NOT NULL");
+		$user = GDO_User::current();
+		return GDO_PM::table()->select('*')->where('pm_owner='.$user->getID())->where("pm_deleted_at IS NOT NULL");
 	}
 	
 	public function getResult()
@@ -79,8 +79,8 @@ final class Trashcan extends MethodQueryTable
 	{
 		if ($ids = $this->getRBX())
 		{
-			$user = User::current();
-			PM::table()->deleteWhere("pm_owner={$user->getID()} AND pm_id IN($ids)")->exec();
+			$user = GDO_User::current();
+			GDO_PM::table()->deleteWhere("pm_owner={$user->getID()} AND pm_id IN($ids)")->exec();
 			$affected = Database::instance()->affectedRows();
 			return $this->message('msg_pm_destroyed', [$affected]);
 		}
@@ -90,18 +90,18 @@ final class Trashcan extends MethodQueryTable
 	{
 		if ($ids = $this->getRBX())
 		{
-			$user = User::current();
-			PM::table()->update()->set("pm_deleted_at = NULL")->where("pm_owner={$user->getID()} AND pm_id IN($ids)")->exec();
+			$user = GDO_User::current();
+			GDO_PM::table()->update()->set("pm_deleted_at = NULL")->where("pm_owner={$user->getID()} AND pm_id IN($ids)")->exec();
 			$affected = Database::instance()->affectedRows();
-			PM::updateOtherDeleted();
+			GDO_PM::updateOtherDeleted();
 			return $this->message('msg_pm_restored', [$affected]);
 		}
 	}
 	
 	public function onEmpty()
 	{
-		$user = User::current();
-		PM::table()->deleteWhere("pm_owner={$user->getID()} AND pm_deleted_at IS NOT NULL")->exec();
+		$user = GDO_User::current();
+		GDO_PM::table()->deleteWhere("pm_owner={$user->getID()} AND pm_deleted_at IS NOT NULL")->exec();
 		$affected = Database::instance()->affectedRows();
 		return $this->message('msg_pm_destroyed', [$affected]);
 	}

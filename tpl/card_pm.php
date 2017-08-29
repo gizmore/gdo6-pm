@@ -1,8 +1,7 @@
 <?php
-use GDO\PM\PM;
+use GDO\PM\GDO_PM;
 use GDO\UI\GDT_Button;
-
-$pm instanceof PM;
+$pm instanceof GDO_PM;
 ?>
 <md-card>
   <md-card-title>

@@ -4,10 +4,10 @@ namespace GDO\PM\Method;
 use GDO\Core\Method;
 use GDO\DB\Database;
 use GDO\Date\Time;
-use GDO\PM\PM;
-use GDO\PM\PMFolder;
+use GDO\PM\GDO_PM;
+use GDO\PM\GDO_PMFolder;
 use GDO\PM\PMMethod;
-use GDO\User\User;
+use GDO\User\GDO_User;
 use GDO\Util\Common;
 /**
  * Main PM Functionality / Navigation
@@ -48,25 +48,25 @@ final class Overview extends Method
 	{
 		if ($ids = $this->getRBX())
 		{
-			$user = User::current();
+			$user = GDO_User::current();
 			$now = Time::getDate();
-			PM::table()->update()->set("pm_deleted_at='$now'")->where("pm_owner={$user->getID()} AND pm_id IN($ids)")->exec();
+			GDO_PM::table()->update()->set("pm_deleted_at='$now'")->where("pm_owner={$user->getID()} AND pm_id IN($ids)")->exec();
 			$affected = Database::instance()->affectedRows();
-			PM::updateOtherDeleted();
+			GDO_PM::updateOtherDeleted();
 			return $this->message('msg_pm_deleted', [$affected]);
 		}
 	}
 	
 	private function onMove()
 	{
-		$user = User::current();
-		if (!($folder = PMFolder::getByIdAndUser(Common::getFormString('folder'), $user)))
+		$user = GDO_User::current();
+		if (!($folder = GDO_PMFolder::getByIdAndUser(Common::getFormString('folder'), $user)))
 		{
 			return $this->error('err_pm_folder');
 		}
 		if ($ids = $this->getRBX())
 		{
-			PM::table()->update()->set("pm_folder={$folder->getID()}")->where("pm_owner={$user->getID()} AND pm_id IN($ids)")->exec();
+		    GDO_PM::table()->update()->set("pm_folder={$folder->getID()}")->where("pm_owner={$user->getID()} AND pm_id IN($ids)")->exec();
 			$affected = Database::instance()->affectedRows();
 			return $this->message('msg_pm_moved', [$affected, $folder->displayName()]);
 		}
