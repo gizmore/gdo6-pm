@@ -31,11 +31,16 @@ final class Module_PM extends GDO_Module
 	public function getUserSettings()
 	{
 		return array(
-			GDT_Message::make('pm_signature')->max(1024)->label('pm_signature'),
 			GDT_Level::make('pm_level')->initial('0')->notNull()->label('pm_level'),
 			GDT_Checkbox::make('pm_email')->initial('0'),
 			GDT_Checkbox::make('pm_guests')->initial('0'),
 		);
+	}
+	public function getUserSettingBlobs()
+	{
+	    return array(
+	        GDT_Message::make('signature')->max(4096)->label('signature'),
+	    );
 	}
 	public function getConfig()
 	{
