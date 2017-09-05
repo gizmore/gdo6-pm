@@ -22,7 +22,7 @@ return array(
 # Settings
 'pm_email' => 'E-Mail on PM',
 'pm_level' => 'Userlevel needed to PM you',
-'pm_signature' => 'Your PM Signature',
+'signature' => 'Your Signature',
 'pm_guests' => 'Guests may PM you',
 # Read
 'pm_by' => 'From: %s',
