@@ -55,17 +55,17 @@ final class GDO_PM extends GDO # implements GDT_Searchable
 	public function getTitle() { return $this->getVar('pm_title'); }
 	
 	/**
-	 * @return User
+	 * @return GDO_User
 	 */
 	public function getSender() { return $this->getValue('pm_from'); }
 	
 	/**
-	 * @return User
+	 * @return GDO_User
 	 */
 	public function getReceiver() { return $this->getValue('pm_to'); }
 	
 	/**
-	 * @return User
+	 * @return GDO_User
 	 */
 	public function getOwner() { return $this->getValue('pm_owner'); }
 	public function getOwnerID() { return $this->getVar('pm_owner'); }
@@ -75,7 +75,7 @@ final class GDO_PM extends GDO # implements GDT_Searchable
 	 * Get the other user that differs from param user.
 	 * One of the two users has to match.
 	 * @param GDO_User $user
-	 * @return User
+	 * @return GDO_User
 	 */
 	public function getOtherUser(GDO_User $user)
 	{
