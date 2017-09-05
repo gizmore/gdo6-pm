@@ -81,11 +81,11 @@ final class GDO_PM extends GDO # implements GDT_Searchable
 	{
 		if ($user->getID() === $this->getFromID())
 		{
-			return $this->getReceiver();
+		    return $this->getReceiver();
 		}
 		elseif ($user->getID() === $this->getToID())
 		{
-			return $this->getSender();
+		    return $this->getSender();
 		}
 	}
 	

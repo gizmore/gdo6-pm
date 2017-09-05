@@ -6,7 +6,7 @@ use GDO\Avatar\GDO_Avatar;
 
 $pm instanceof GDO_PM;
 $user = GDO_User::current();
-$otherGDO_User = $pm->getOtherUser($user);
+$otherUser = $pm->getOtherUser($user);
 $href = href('PM', 'Read', '&id='.$pm->getID());
 $hrefDelete = href('PM', 'Overview', '&delete=1&id='.$pm->getID());
 ?>

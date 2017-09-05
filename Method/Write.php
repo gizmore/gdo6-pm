@@ -71,7 +71,7 @@ final class Write extends MethodForm
 		if ($this->reply)
 		{
 			# Recipient
-			$username = $this->reply->getOtherUser(GDO_User::current())->displayName();
+			$username = $this->reply->getOtherUser(GDO_User::current())->getID();
 			# Message
 			$message= $this->reply->getVar('pm_message');
 			# Title

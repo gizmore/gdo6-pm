@@ -1,6 +1,7 @@
 <?php
 use GDO\PM\GDO_PM;
 use GDO\UI\GDT_Button;
+use GDO\User\GDO_UserSetting;
 $pm instanceof GDO_PM;
 ?>
 <md-card>
@@ -21,6 +22,8 @@ $pm instanceof GDO_PM;
     <section layout="column" flex layout-fill>
 <?= $pm->gdoColumn('pm_message')->renderCell(); ?>
     </section>
+    <hr/>
+<?= GDO_UserSetting::get('pm_signature')->renderCell(); ?>
   </md-card-content>
   <md-card-actions layout="row" layout-align="end center">
     <?php foreach ($actions as $action) : $action instanceof GDT_Button; ?>
