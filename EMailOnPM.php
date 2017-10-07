@@ -2,7 +2,7 @@
 namespace GDO\PM;
 
 use GDO\Mail\Mail;
-use GDO\Template\Response;
+use GDO\Core\GDT_Response;
 use GDO\UI\GDT_Link;
 use GDO\User\GDO_User;
 use GDO\User\GDO_UserSetting;
@@ -49,6 +49,6 @@ final class EMailOnPM
 			GDT_Link::anchor(href('PM', 'Delete', "&id={$pm->getID()}&token={$pm->gdoHashcode()}")),
 		)));
 		$email->sendToUser($receiver);
-		echo Response::message('msg_pm_mail_sent', [$receiver->displayName()])->render();
+		echo GDT_Response::message('msg_pm_mail_sent', [$receiver->displayName()])->render();
 	}
 }

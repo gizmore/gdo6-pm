@@ -1,6 +1,6 @@
 <?php
 use GDO\PM\GDO_PM;
-use GDO\Template\GDT_Template;
+use GDO\Core\GDT_Template;
 use GDO\UI\GDT_Icon;
 $field instanceof GDT_Template;
 $pm = $field->gdo;

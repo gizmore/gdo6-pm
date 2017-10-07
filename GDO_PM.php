@@ -8,10 +8,10 @@ use GDO\DB\GDT_DeletedAt;
 use GDO\DB\GDT_Object;
 use GDO\Date\GDT_DateTime;
 use GDO\Date\Time;
-use GDO\Template\GDT_Template;
-use GDO\Type\GDT_Checkbox;
-use GDO\Type\GDT_Message;
-use GDO\Type\GDT_String;
+use GDO\Core\GDT_Template;
+use GDO\DB\GDT_Checkbox;
+use GDO\UI\GDT_Message;
+use GDO\DB\GDT_String;
 use GDO\User\GDT_User;
 use GDO\User\GDO_User;
 
@@ -130,7 +130,7 @@ final class GDO_PM extends GDO # implements GDT_Searchable
 		or(" ( SELECT pm_deleted_at FROM ( SELECT * FROM gdo_pm ) b WHERE b.pm_id = gdo_pm.pm_other ) IS NOT NULL ")->exec();
 	}
 	
-	public static function getByIdAndUser(string $id, GDO_User $user)
+	public static function getByIdAndUser($id, GDO_User $user)
 	{
 		$id = self::quoteS($id);
 		return self::table()->select('*')->where("pm_id={$id} AND pm_owner={$user->getID()}")->exec()->fetchObject();

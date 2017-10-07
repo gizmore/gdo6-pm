@@ -3,8 +3,8 @@ namespace GDO\PM;
 
 use GDO\Core\GDO;
 use GDO\DB\GDT_AutoInc;
-use GDO\Type\GDT_Int;
-use GDO\Type\GDT_Name;
+use GDO\DB\GDT_Int;
+use GDO\DB\GDT_Name;
 use GDO\User\GDT_User;
 use GDO\User\GDO_User;
 
@@ -36,7 +36,7 @@ final class GDO_PMFolder extends GDO
 	 * @param string $userid
 	 * @return array
 	 */
-	public static function getFolders(string $userid)
+	public static function getFolders($userid)
 	{
 		static $folders;
 		if (!isset($folders))
@@ -54,7 +54,7 @@ final class GDO_PMFolder extends GDO
 	 * @param GDO_User $user
 	 * @return GDO_PMFolder
 	 */
-	public static function getByIdAndUser(string $folderId, GDO_User $user)
+	public static function getByIdAndUser($folderId, GDO_User $user)
 	{
 		$folderId = (int)$folderId;
 		switch ($folderId)

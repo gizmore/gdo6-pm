@@ -1,5 +1,5 @@
 <?php
-use GDO\Template\GDT_Template;
+use GDO\Core\GDT_Template;
 use GDO\UI\GDT_Link;
 $field instanceof GDT_Template;
 $gdo = $field->gdo;

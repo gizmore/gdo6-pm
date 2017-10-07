@@ -4,7 +4,7 @@ namespace GDO\PM\Method;
 use GDO\DB\ArrayResult;
 use GDO\PM\GDO_PMFolder;
 use GDO\Table\MethodTable;
-use GDO\Template\GDT_Template;
+use GDO\Core\GDT_Template;
 use GDO\User\GDO_User;
 
 final class Folders extends MethodTable

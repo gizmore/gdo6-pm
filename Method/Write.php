@@ -101,7 +101,7 @@ final class Write extends MethodForm
 		return $this->message('msg_pm_sent');
 	}
 	
-	public function deliver(GDO_User $from, GDO_User $to, string $title, string $message, GDO_PM $parent=null)
+	public function deliver(GDO_User $from, GDO_User $to, $title, $message, GDO_PM $parent=null)
 	{
 	    $pmFrom = GDO_PM::blank(array(
 				'pm_parent' => $parent ? $parent->getPMFor($from)->getID() : null,
