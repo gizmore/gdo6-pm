@@ -56,10 +56,10 @@ final class Write extends MethodForm
 		list($username, $title, $message) = $this->initialValues();
 		$table = GDO_PM::table();
 		$form->addFields(array(
-			GDT_User::make('pm_write_to')->notNull()->var($username),
+			GDT_User::make('pm_write_to')->notNull()->initial($username),
 		    GDT_Validator::make()->validator('pm_write_to', [$this, 'validateCanSend']),
-			$table->gdoColumn('pm_title')->var($title),
-			$table->gdoColumn('pm_message')->var($message),
+		    $table->gdoColumn('pm_title')->initial($title),
+		    $table->gdoColumn('pm_message')->initial($message),
 			GDT_Submit::make(),
 			GDT_AntiCSRF::make(),
 		));
