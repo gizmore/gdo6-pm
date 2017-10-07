@@ -1,7 +1,7 @@
 <?php
 namespace GDO\PM;
 
-use GDO\DB\GDO;
+use GDO\Core\GDO;
 use GDO\DB\GDT_AutoInc;
 use GDO\Type\GDT_Int;
 use GDO\Type\GDT_Name;
