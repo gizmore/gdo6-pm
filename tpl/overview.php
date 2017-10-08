@@ -1,4 +1,4 @@
 <section layout="column" layout-gt-md="row" layout-fill flex layout-align="space-around none">
-  <div><?= $folders; ?></div>
-  <div><?= $folder; ?></div>
+  <div><?= $folders->render(); ?></div>
+  <div><?= $folder->render(); ?></div>
 </section>

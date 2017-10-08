@@ -1,7 +1,5 @@
-<?php
-use GDO\Core\GDT_Template;
+<?php /** @var $field \GDO\Core\GDT_Template **/
 use GDO\UI\GDT_Link;
-$field instanceof GDT_Template;
 $gdo = $field->gdo;
-?>
-<?= GDT_Link::make()->label($gdo->getName())->href(href('PM', 'Overview', '&folder='.$gdo->getID())); ?>
+
+echo GDT_Link::make()->label($gdo->getName())->href(href('PM', 'Overview', '&folder='.$gdo->getID()))->render();

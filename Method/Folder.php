@@ -44,7 +44,7 @@ final class Folder extends MethodQueryList
 	
 	public function gdoDecorateList(GDT_List $list)
 	{
-		$list->rawlabel($this->folder->display('pmf_name'));
+		$list->title($this->folder->display('pmf_name'));
 		$list->href(href('PM', 'Overview'));
 // 		$list->actions()->addFields(array(
 // 			GDT_Submit::make('delete')->label('btn_delete'),
