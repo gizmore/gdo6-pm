@@ -64,7 +64,7 @@ final class Trashcan extends MethodQueryTable
 	
 	public function onDecorateTable(GDT_Table $table)
 	{
-		$table->rawlabel(t('name_trashcan'));
+		$table->title(t('name_trashcan'));
 		$table->actions()->addFields(array(
 			GDT_Submit::make('restore')->label('btn_restore'),
 			GDT_Submit::make('delete')->label('btn_delete'),
