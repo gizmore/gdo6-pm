@@ -35,8 +35,8 @@ final class Overview extends Method
 	private function pmOverview()
 	{
 		$tVars = array(
-			'folder' => $this->execMethod('Folder'),
-			'folders' => $this->execMethod('Folders'),
+			'folder' => Folder::make()->execMethod(),
+			'folders' => Folders::make()->execMethod(),
 		);
 		return $this->templatePHP('overview.php', $tVars);
 	}
