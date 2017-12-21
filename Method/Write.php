@@ -48,7 +48,15 @@ final class Write extends MethodForm
 				return $this->pmNavbar()->add($this->error('err_pm_limit_reached', [$limit, Time::displayAgeTS($cut)]));
 			}
 		}
-		return $this->pmNavbar()->add(parent::execute());
+		
+		$result = $this->pmNavbar();
+		
+		if ($this->reply)
+		{
+			$result->add(Read::make()->pmRead($this->reply));
+		}
+		
+		return $result->add(parent::execute());
 	}
 	
 	public function createForm(GDT_Form $form)
