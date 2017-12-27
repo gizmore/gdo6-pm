@@ -12,6 +12,7 @@ use GDO\Core\GDT_Template;
 use GDO\DB\GDT_Checkbox;
 use GDO\UI\GDT_Message;
 use GDO\DB\GDT_String;
+use GDO\User\GDO_UserSettingBlob;
 use GDO\User\GDT_User;
 use GDO\User\GDO_User;
 
@@ -53,6 +54,8 @@ final class GDO_PM extends GDO # implements GDT_Searchable
 	public function isRead() { return $this->getVar('pm_read_at') !== null; }
 	public function displayDate() { return Time::displayDate($this->getVar('pm_sent_at')); }
 	public function getTitle() { return $this->getVar('pm_title'); }
+	public function displayMessage() { return $this->getValue('pm_message'); }
+	public function displaySignature() { return GDO_UserSettingBlob::userGet($this->getSender(), 'signature')->renderCell(); }
 	
 	/**
 	 * @return GDO_User

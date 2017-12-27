@@ -1,34 +1,36 @@
 <?php
 use GDO\PM\GDO_PM;
 use GDO\UI\GDT_Button;
-use GDO\User\GDO_UserSetting;
+use GDO\UI\GDT_HTML;
 use GDO\User\GDO_UserSettingBlob;
+use GDO\UI\GDT_Card;
+use GDO\Profile\GDT_ProfileLink;
 $pm instanceof GDO_PM;
-?>
-<md-card>
-  <md-card-title>
-    <md-card-title-text>
-      <span class="md-headline"><?php $pm->edisplay('pm_title'); ?></span>
-    </md-card-title-text>
-  </md-card-title>
-  <md-card-content>
-    <section layout="row" flex layout-fill>
-      <div>
-        <b><?= t('pm_by', [$pm->getSender()->displayName()]); ?></b><br/><b><?= t('pm_to', [$pm->getReceiver()->displayName()]); ?></b>
-      </div>
-      <div>
-        <b><?= t('pm_sent', [$pm->displayDate()]); ?></b>
-      </div>
-    </section>
-    <section layout="column" flex layout-fill>
-<?= $pm->gdoColumn('pm_message')->renderCell(); ?>
-    </section>
-    <hr/>
-<?= GDO_UserSettingBlob::get('signature')->renderCell(); ?>
-  </md-card-content>
-  <md-card-actions layout="row" layout-align="end center">
-    <?php foreach ($actions as $action) : $action instanceof GDT_Button; ?>
-    <?= $action->renderCell(); ?>
-    <?php endforeach; ?>
-  </md-card-actions>
-</md-card>
+
+$creator = $pm->getSender();
+
+$card = new GDT_Card();
+$avatar = GDT_ProfileLink::make()->forUser($creator)->withNickname()->render();
+$title=<<<EOT
+<div>
+<div>{$avatar}</div>
+<div>{$pm->displayDate()}</div>
+</div>
+EOT;
+$card->title($title);
+
+$html = <<<EOT
+<hr/>
+{$pm->displayMessage()}
+{$pm->displaySignature()}
+<hr/>
+EOT;
+$card->addField(GDT_HTML::withHTML($html));
+
+foreach ($actions as $action)
+{
+	$action instanceof GDT_Button; 
+	$card->actions()->addField($action);
+}
+
+echo $card->render();
