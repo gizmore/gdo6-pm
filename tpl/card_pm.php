@@ -21,7 +21,10 @@ $card->title($title);
 
 $html = <<<EOT
 <hr/>
+{$pm->display('pm_title')}
+<hr/>
 {$pm->displayMessage()}
+<hr/>
 {$pm->displaySignature()}
 <hr/>
 EOT;
