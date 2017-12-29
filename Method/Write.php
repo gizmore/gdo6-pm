@@ -81,12 +81,23 @@ final class Write extends MethodForm
 			# Recipient
 			$username = $this->reply->getOtherUser(GDO_User::current())->getID();
 			# Message
-			$message= $this->reply->getVar('pm_message');
+			$message = '';
 			# Title
 			$title = $this->reply->getVar('pm_title');
 			$re = Module_PM::instance()->cfgRE();
 			$title = $re . ' ' . trim(Strings::substrFrom($title, $re));
 		}
+		
+		if (isset($_REQUEST['quote']))
+		{
+			$msg = $this->reply->getVar('pm_message');
+			$by = $this->reply->getSender()->displayName();
+			$by = t('quote_by', [$by]);
+			$at = tt($this->reply->getVar('pm_sent_at'));
+			$at = t('quote_at', [$at]);
+			$message = sprintf('<blockquote><span class="quote-by">%s</span><span class="quote-from">%s</span>%s</blockquote>', $by, $at, $msg);
+		}
+		
 		return [$username, $title, $message];
 	}
 	
