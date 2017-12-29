@@ -7,6 +7,6 @@ $pm = $field->gdo;
 $pm instanceof GDO_PM;
 ?>
 <?php if (!$pm->isRead()) : ?>
-<?= GDT_Icon::iconS('notifications_active'); ?>
+<?= GDT_Icon::iconS('alert'); ?>
 <?php endif; ?>
 
