@@ -98,6 +98,11 @@ final class Write extends MethodForm
 			$message = sprintf('<blockquote><span class="quote-by">%s</span><span class="quote-from">%s</span>%s</blockquote>', $by, $at, $msg);
 		}
 		
+		if (isset($_REQUEST['username']))
+		{
+			$username = GDO_User::getByName($_REQUEST['username'])->getID();
+		}
+		
 		return [$username, $title, $message];
 	}
 	
