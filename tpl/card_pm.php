@@ -30,10 +30,11 @@ $html = <<<EOT
 EOT;
 $card->addField(GDT_HTML::withHTML($html));
 
-foreach ($actions as $action)
-{
-	$action instanceof GDT_Button; 
-	$card->actions()->addField($action);
-}
+$card->actions()->addFields(array(
+	GDT_Button::make('delete')->gdo($pm)->icon('delete'),
+	GDT_Button::make('reply')->gdo($pm)->icon('reply'),
+	GDT_Button::make('quote')->gdo($pm)->icon('quote'),
+));
+
 
 echo $card->render();

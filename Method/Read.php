@@ -5,7 +5,6 @@ use GDO\Core\Method;
 use GDO\Date\Time;
 use GDO\PM\GDO_PM;
 use GDO\PM\PMMethod;
-use GDO\UI\GDT_Button;
 use GDO\User\GDO_User;
 use GDO\Util\Common;
 
@@ -29,12 +28,7 @@ final class Read extends Method
 			$pm->saveVar('pm_read_at', Time::getDate());
 			$pm->getOtherPM()->saveVar('pm_other_read', '1');
 		}
-		$actions = array(
-			GDT_Button::make('delete')->gdo($pm)->icon('delete'),
-			GDT_Button::make('reply')->gdo($pm)->icon('reply'),
-			GDT_Button::make('quote')->gdo($pm)->icon('quote'),
-		);
-		return $this->templatePHP('card_pm.php', ['pm' => $pm, 'actions' => $actions]);
+		return $this->templatePHP('card_pm.php', ['pm' => $pm]);
 	}
 	
 }

@@ -130,7 +130,7 @@ final class GDO_PM extends GDO # implements GDT_Searchable
 	{
 		self::table()->update()->set("pm_other_deleted=1")->
 		where(" ( SELECT pm_id FROM ( SELECT * FROM gdo_pm ) b WHERE gdo_pm.pm_other = b.pm_id ) IS NULL ")->
-		or(" ( SELECT pm_deleted_at FROM ( SELECT * FROM gdo_pm ) b WHERE b.pm_id = gdo_pm.pm_other ) IS NOT NULL ")->exec();
+		orWhere(" ( SELECT pm_deleted_at FROM ( SELECT * FROM gdo_pm ) b WHERE b.pm_id = gdo_pm.pm_other ) IS NOT NULL ")->exec();
 	}
 	
 	public static function getByIdAndUser($id, GDO_User $user)
