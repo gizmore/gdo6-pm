@@ -15,6 +15,8 @@ use GDO\User\GDT_Level;
 use GDO\User\GDT_User;
 use GDO\User\GDT_Username;
 use GDO\User\GDO_User;
+use GDO\UI\GDT_Card;
+use GDO\UI\GDT_Link;
 
 final class Module_PM extends GDO_Module
 {
@@ -95,6 +97,12 @@ final class Module_PM extends GDO_Module
 	#############
 	### Hooks ###
 	#############
+	public function hookProfileCard(GDO_User $user, GDT_Card $card)
+	{
+		$linkPM = GDT_Link::make()->href(href('PM', 'Write', '&username='.$user->getName()))->label(t('link_write_pm'));
+		$card->actions()->addField($linkPM);
+	}
+	
 	public function hookUserActivated(GDO_User $user)
 	{
 		if ($this->cfgWelcomePM())
