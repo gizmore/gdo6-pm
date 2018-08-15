@@ -5,10 +5,10 @@ use GDO\UI\WithLabel;
 
 final class GDT_PMFromTo extends GDT
 {
-    use WithLabel;
-    
-    public function displayHeaderLabel() { return ''; }
-    
+	use WithLabel;
+	
+	public function displayHeaderLabel() { return ''; }
+	
 	public function renderCell()
 	{
 		return Module_PM::instance()->templatePHP('cell_pmfromto.php', ['field'=>$this, 'pm'=>$this->gdo]);

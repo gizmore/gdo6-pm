@@ -14,7 +14,7 @@ use GDO\User\GDO_UserSetting;
  */
 final class EMailOnPM
 {
-    public static function deliver(GDO_PM $pm)
+	public static function deliver(GDO_PM $pm)
 	{
 		$receiver = $pm->getReceiver();
 		if (GDO_UserSetting::userGet($receiver, 'pm_email')->getValue())

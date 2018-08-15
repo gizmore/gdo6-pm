@@ -12,7 +12,7 @@ final class Delete extends Method
 	
 	public function execute()
 	{
-	    if ( (!($pm = GDO_PM::getById(Common::getRequestString('pm')))) || 
+		if ( (!($pm = GDO_PM::getById(Common::getRequestString('pm')))) || 
 				($pm->gdoHashcode() !== Common::getRequestString('token')) )
 		{
 			return $this->pmNavbar()->add($this->error('err_pm'))->add(Overview::make()->execute());

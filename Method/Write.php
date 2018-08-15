@@ -65,9 +65,9 @@ final class Write extends MethodForm
 		$table = GDO_PM::table();
 		$form->addFields(array(
 			GDT_User::make('pm_write_to')->notNull()->initial($username),
-		    GDT_Validator::make()->validator('pm_write_to', [$this, 'validateCanSend']),
-		    $table->gdoColumn('pm_title')->initial($title),
-		    $table->gdoColumn('pm_message')->initial($message),
+			GDT_Validator::make()->validator('pm_write_to', [$this, 'validateCanSend']),
+			$table->gdoColumn('pm_title')->initial($title),
+			$table->gdoColumn('pm_message')->initial($message),
 			GDT_Submit::make(),
 			GDT_AntiCSRF::make(),
 		));
@@ -108,14 +108,14 @@ final class Write extends MethodForm
 	
 	public function validateCanSend(GDT_Form $form, GDT_User $user, $value)
 	{
-	    if ($value === null)
-	    {
-	        return $this->error('err_not_null');
-	    }
-	    if ($value->getID() === GDO_User::current()->getID())
-	    {
-	        return $this->error('err_no_pm_self');
-	    }
+		if ($value === null)
+		{
+			return $this->error('err_not_null');
+		}
+		if ($value->getID() === GDO_User::current()->getID())
+		{
+			return $this->error('err_no_pm_self');
+		}
 		return true;
 	}
 	
@@ -127,13 +127,13 @@ final class Write extends MethodForm
 	
 	public function deliver(GDO_User $from, GDO_User $to, $title, $message, GDO_PM $parent=null)
 	{
-	    $pmFrom = GDO_PM::blank(array(
+		$pmFrom = GDO_PM::blank(array(
 				'pm_parent' => $parent ? $parent->getPMFor($from)->getID() : null,
 				'pm_read_at' => Time::getDate(),
 				'pm_owner' => $from->getID(),
 				'pm_from' => $from->getID(),
 				'pm_to' => $to->getID(),
-	       	    'pm_folder' => GDO_PMFolder::OUTBOX,
+		   		'pm_folder' => GDO_PMFolder::OUTBOX,
 				'pm_title' => $title,
 				'pm_message' => $message,
 		))->insert();
@@ -142,7 +142,7 @@ final class Write extends MethodForm
 				'pm_owner' => $to->getID(),
 				'pm_from' => $from->getID(),
 				'pm_to' => $to->getID(),
-		        'pm_folder' => GDO_PMFolder::INBOX,
+				'pm_folder' => GDO_PMFolder::INBOX,
 				'pm_title' => $title,
 				'pm_message' => $message,
 				'pm_other' => $pmFrom->getID(),

@@ -42,7 +42,7 @@ final class GDO_PMFolder extends GDO
 		if (!isset($folders))
 		{
 			$folders = array_merge(
-			    GDO_PMFolder::getDefaultFolders(),
+				GDO_PMFolder::getDefaultFolders(),
 				self::table()->select('*')->where('pmf_user='.quote($userid))->exec()->fetchAllObjects()
 			);
 		}
@@ -91,7 +91,7 @@ final class GDO_PMFolder extends GDO
 				'pmf_id' => $fid,
 				'pmf_uid' => $uid,
 				'pmf_name' => t('inbox_name'),
-			    'pmf_count' => GDO_PM::table()->countWhere("pm_folder=$fid AND pm_owner=$uid AND pm_deleted_at IS NULL"),
+				'pmf_count' => GDO_PM::table()->countWhere("pm_folder=$fid AND pm_owner=$uid AND pm_deleted_at IS NULL"),
 			));
 		}
 		return $inbox;
@@ -108,7 +108,7 @@ final class GDO_PMFolder extends GDO
 				'pmf_id' => $fid,
 				'pmf_uid' => $uid,
 				'pmf_name' => t('outbox_name'),
-			    'pmf_count' => GDO_PM::table()->countWhere("pm_folder=$fid AND pm_owner=$uid AND pm_deleted_at IS NULL"),
+				'pmf_count' => GDO_PM::table()->countWhere("pm_folder=$fid AND pm_owner=$uid AND pm_deleted_at IS NULL"),
 			));
 		}
 		return $outbox;

@@ -15,7 +15,7 @@ final class Folders extends MethodTable
 	
 	public function getHeaders()
 	{
-	    $table = GDO_PMFolder::table();
+		$table = GDO_PMFolder::table();
 		return array(
 			GDT_Template::make()->template('PM', 'folder_link.php')->label('folder'),
 			$table->gdoColumn('pmf_count'),
@@ -24,7 +24,7 @@ final class Folders extends MethodTable
 	
 	public function getResult()
 	{
-	    $folders = GDO_PMFolder::getFolders(GDO_User::current()->getID());
-	    return new ArrayResult($folders, GDO_PMFolder::table());
+		$folders = GDO_PMFolder::getFolders(GDO_User::current()->getID());
+		return new ArrayResult($folders, GDO_PMFolder::table());
 	}
 }

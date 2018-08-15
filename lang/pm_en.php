@@ -15,7 +15,7 @@ return array(
 'btn_pm' => 'Private Messages',
 'msg_pm_destroyed' => '%s PMs have been finally deleted.',
 'msg_pm_restored' => '%s PMs have been restored.',
-    
+	
 # Write
 'ft_pm_write' => '[%s] Write Private Message',
 'msg_pm_sent' => 'Your private message has been sent.',

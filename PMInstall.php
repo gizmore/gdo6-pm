@@ -14,10 +14,10 @@ final class PMInstall
 	
 	private static function installFolders(Module_PM $module)
 	{
-	    if (!GDO_PMFolder::table()->countWhere('true'))
+		if (!GDO_PMFolder::table()->countWhere('true'))
 		{
-		    GDO_PMFolder::blank(['pmf_name' => 'INBOX'])->insert();
-		    GDO_PMFolder::blank(['pmf_name' => 'OUTBOX'])->insert();
+			GDO_PMFolder::blank(['pmf_name' => 'INBOX'])->insert();
+			GDO_PMFolder::blank(['pmf_name' => 'OUTBOX'])->insert();
 		}
 	}
 	

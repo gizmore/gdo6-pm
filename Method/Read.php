@@ -14,7 +14,7 @@ final class Read extends Method
 	
 	public function execute()
 	{
-	    if (!($pm = GDO_PM::getByIdAndUser(Common::getRequestString('id'), GDO_User::current())))
+		if (!($pm = GDO_PM::getByIdAndUser(Common::getRequestString('id'), GDO_User::current())))
 		{
 			return $this->pmNavbar()->add($this->error('err_pm'));
 		}

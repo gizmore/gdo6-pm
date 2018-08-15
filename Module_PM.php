@@ -40,9 +40,9 @@ final class Module_PM extends GDO_Module
 	}
 	public function getUserSettingBlobs()
 	{
-	    return array(
-	        GDT_Message::make('signature')->max(4096)->label('signature'),
-	    );
+		return array(
+			GDT_Message::make('signature')->max(4096)->label('signature'),
+		);
 	}
 	public function getConfig()
 	{
@@ -126,10 +126,10 @@ final class Module_PM extends GDO_Module
 	##############
 	public function hookRightBar(GDT_Bar $navbar)
 	{
-	    if (GDO_User::current()->isAuthenticated())
-	    {
-    		$this->templatePHP('rightbar.php', ['navbar' => $navbar]);
-	    }
+		if (GDO_User::current()->isAuthenticated())
+		{
+			$this->templatePHP('rightbar.php', ['navbar' => $navbar]);
+		}
 	}
 	
 }

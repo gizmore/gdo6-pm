@@ -33,9 +33,9 @@ final class GDO_PM extends GDO # implements GDT_Searchable
 			GDT_User::make('pm_owner')->notNull(),
 			GDT_User::make('pm_from')->cascadeNull(),
 			GDT_User::make('pm_to')->notNull(),
-		    GDT_Object::make('pm_folder')->table(GDO_PMFolder::table())->notNull(),
-		    GDT_Object::make('pm_parent')->table(GDO_PM::table())->cascadeNull(),
-		    GDT_Object::make('pm_other')->table(GDO_PM::table())->cascadeNull(),
+			GDT_Object::make('pm_folder')->table(GDO_PMFolder::table())->notNull(),
+			GDT_Object::make('pm_parent')->table(GDO_PM::table())->cascadeNull(),
+			GDT_Object::make('pm_other')->table(GDO_PM::table())->cascadeNull(),
 			GDT_String::make('pm_title')->notNull()->label('title'),
 			GDT_Message::make('pm_message')->notNull(),
 			GDT_Checkbox::make('pm_other_read')->initial('0'),
@@ -84,11 +84,11 @@ final class GDO_PM extends GDO # implements GDT_Searchable
 	{
 		if ($user->getID() === $this->getFromID())
 		{
-		    return $this->getReceiver();
+			return $this->getReceiver();
 		}
 		elseif ($user->getID() === $this->getToID())
 		{
-		    return $this->getSender();
+			return $this->getSender();
 		}
 	}
 	

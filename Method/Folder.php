@@ -21,12 +21,12 @@ final class Folder extends MethodQueryList
 	
 	public function init()
 	{
-	    $this->folder = GDO_PMFolder::table()->find(Common::getRequestInt('folder', 1));
+		$this->folder = GDO_PMFolder::table()->find(Common::getRequestInt('folder', 1));
 	}
 	
 	public function getFilters()
 	{
-	    $table = GDO_PM::table();
+		$table = GDO_PM::table();
 		return array(
 // 			GDT_RowNum::make(),
 // 			GDT_Template::make()->module($this->module)->template('cell_pmunread.php'),
