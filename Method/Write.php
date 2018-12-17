@@ -165,7 +165,7 @@ final class Write extends MethodForm
 		{
 			$pmTo = $this->pmTo;
 			EMailOnPM::deliver($pmTo);
-			GDT_Hook::call('PMSent', $pmTo);
+			GDT_Hook::callWithIPC('PMSent', $pmTo);
 		}
 	}
 }
