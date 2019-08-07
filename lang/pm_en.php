@@ -17,7 +17,7 @@ return array(
 'msg_pm_restored' => '%s PMs have been restored.',
 	
 # Write
-'ft_pm_write' => '[%s] Write Private Message',
+'ft_pm_write' => 'Write Private Message',
 'msg_pm_sent' => 'Your private message has been sent.',
 # Settings
 'pm_email' => 'E-Mail on PM',
