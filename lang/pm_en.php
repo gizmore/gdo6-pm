@@ -1,5 +1,28 @@
 <?php
 return array(
+# Config Admin
+'cfg_pm_re' => 'Response title prefix',
+'cfg_pm_limit' => 'Max PMs within PM limit timeout',
+'cfg_pm_limit_timeout' => 'PM limit timeout ',
+'cfg_pm_max_folders' => 'Max custom folders',
+'cfg_pm_for_guests' => 'Allow guests to write PM',
+'cfg_pm_captcha' => 'Enable Captcha for writing PM',
+'cfg_pm_causes_mail' => 'Enable Mail on PM',
+'cfg_pm_bot_uid' => 'Bot UserId',
+'cfg_pm_own_bot' => 'Use non system PM bot?',
+'cfg_pm_per_page' => 'PM per page',
+'cfg_pm_welcome' => 'Write welcome PM?',
+'cfg_pm_sig_len' => 'Max signature length',
+'cfg_pm_msg_len' => 'Max message length',
+'cfg_pm_title_len' => 'Max title length',
+'cfg_pm_fname_len' => 'Max foldername length',
+'cfg_pm_delete' => 'Really delete PM?',
+'cfg_pm_limit_per_level' => 'Level for one more max PM',
+# Config User
+'cfg_pm_level' => 'Required userlevel to PM you',
+'cfg_pm_email' => 'Send mail when you recieve a PM?',
+'cfg_pm_guests' => 'Allow guests to PM you?',
+'cfg_signature' => 'Your signature',
 # Navbar
 'link_overview' => 'Overview',
 'link_settings' => 'Settings',
@@ -15,7 +38,6 @@ return array(
 'btn_pm' => 'Private Messages',
 'msg_pm_destroyed' => '%s PMs have been finally deleted.',
 'msg_pm_restored' => '%s PMs have been restored.',
-	
 # Write
 'ft_pm_write' => 'Write Private Message',
 'msg_pm_sent' => 'Your private message has been sent.',
@@ -40,11 +62,9 @@ return array(
 Hello %s,
 
 We wish you a graceful welcome on %s.
-We hope you enjoy the site and enjoy your sessions.
+We hope you enjoy the site and your sessions.
 
 Kind Regards
 The %2$s Team',
 ################################################
-
-		
 );
