@@ -54,7 +54,7 @@ final class Module_PM extends GDO_Module
 			GDT_Checkbox::make('pm_for_guests')->initial('1'),
 			GDT_Checkbox::make('pm_captcha')->initial('0'),
 			GDT_Checkbox::make('pm_causes_mail')->initial('0'),
-			GDT_User::make('pm_bot_uid')->label('pm_bot_uid'),
+			GDT_User::make('pm_bot_uid')->label('pm_bot_uid')->editable(false),
 			GDT_Checkbox::make('pm_own_bot'),
 			GDT_Int::make('pm_per_page')->initial('20')->unsigned(),
 			GDT_Checkbox::make('pm_welcome')->initial('0'),
