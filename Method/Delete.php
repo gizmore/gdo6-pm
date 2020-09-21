@@ -2,6 +2,7 @@
 namespace GDO\PM\Method;
 
 use GDO\Core\Method;
+use GDO\Date\Time;
 use GDO\PM\GDO_PM;
 use GDO\PM\PMMethod;
 use GDO\Util\Common;
@@ -22,7 +23,7 @@ final class Delete extends Method
 	
 	public function deletePM(GDO_PM $pm)
 	{
-		$pm->saveVar('pm_deleted_at', time());
+		$pm->saveVar('pm_deleted_at', Time::getDate());
 		$pm->getOtherPM()->saveVar('pm_other_deleted', '1');
 		return $this->message('msg_pm_deleted');
 	}

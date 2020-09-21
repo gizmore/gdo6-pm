@@ -1,6 +1,7 @@
 <?php
 namespace GDO\PM\Method;
 
+use GDO\Core\Application;
 use GDO\Core\GDT_Hook;
 use GDO\Date\Time;
 use GDO\Form\GDT_AntiCSRF;
@@ -41,7 +42,7 @@ final class Write extends MethodForm
 		if ($module->cfgIsPMLimited())
 		{
 			$limit = $module->cfgLimitForUser($user);
-			$cut = time() - $module->cfgLimitTimeout();
+			$cut = Application::$TIME - $module->cfgLimitTimeout();
 			$sent = GDO_PM::table()->countWhere("pm_from={$user->getID()} and pm_sent_at>$cut");
 			if ($sent >= $limit)
 			{
