@@ -24,7 +24,6 @@ return array(
 'cfg_pm_guests' => 'Allow guests to PM you?',
 'cfg_signature' => 'Your signature',
 # Navbar
-'link_overview' => 'Overview',
 'link_settings' => 'Settings',
 'link_trashcan' => 'Trashcan',
 'link_write_pm' => 'Write New PM',

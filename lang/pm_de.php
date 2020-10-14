@@ -24,7 +24,6 @@ return array(
 'cfg_pm_guests' => 'Gästen erlauben Ihnen eine PN zu schreiben?',
 'cfg_signature' => 'Ihre Signatur',
 # Navbar
-'link_overview' => 'Übersicht',
 'link_settings' => 'Einstellungen',
 'link_trashcan' => 'Mülleimer',
 'link_write_pm' => 'PN verfassen',
