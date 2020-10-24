@@ -2,15 +2,17 @@
 namespace GDO\PM;
 
 use GDO\Mail\Mail;
-use GDO\Core\GDT_Response;
 use GDO\UI\GDT_Link;
 use GDO\User\GDO_User;
 use GDO\User\GDO_UserSetting;
+use GDO\Core\GDT_Success;
+
 /**
  * Sends Email on PM.
  * 
  * @author gizmore
- *
+ * @version 6.10
+ * @since 3.04
  */
 final class EMailOnPM
 {
@@ -21,7 +23,7 @@ final class EMailOnPM
 		{
 			if ($receiver->getMail())
 			{
-				self::sendMail($pm, $receiver);
+				return self::sendMail($pm, $receiver);
 			}
 		}
 	}
@@ -39,16 +41,17 @@ final class EMailOnPM
 		}
 		
 		$sitename = sitename();
-		$email->setSubject(tusr($receiver, 'mail_subj_pm', [$sitename, $sender->displayName()]));
+		$email->setSubject(tusr($receiver, 'mail_subj_pm', [$sitename, $sender->displayNameLabel()]));
 		$email->setBody(tusr($receiver, 'mail_body_pm', array(
-			$receiver->displayName(),
-			$sender->displayName(),
+			$receiver->displayNameLabel(),
+			$sender->displayNameLabel(),
 			$sitename,
 			$pm->display('pm_title'),
 			$pm->display('pm_message'),
 			GDT_Link::anchor(href('PM', 'Delete', "&id={$pm->getID()}&token={$pm->gdoHashcode()}")),
 		)));
 		$email->sendToUser($receiver);
-		echo GDT_Response::message('msg_pm_mail_sent', [$receiver->displayName()])->render();
+		return GDT_Success::responseWith('msg_pm_mail_sent', [$receiver->displayNameLabel()]);
 	}
+
 }

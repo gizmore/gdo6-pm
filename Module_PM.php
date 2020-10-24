@@ -17,6 +17,7 @@ use GDO\User\GDT_Username;
 use GDO\User\GDO_User;
 use GDO\UI\GDT_Card;
 use GDO\UI\GDT_Link;
+use GDO\UI\GDT_Divider;
 
 final class Module_PM extends GDO_Module
 {
@@ -33,6 +34,7 @@ final class Module_PM extends GDO_Module
 	public function getUserSettings()
 	{
 		return array(
+		    GDT_Link::make('link_pm_center')->href(href('PM', 'Overview')),
 			GDT_Level::make('pm_level')->initial('0')->notNull()->label('pm_level'),
 			GDT_Checkbox::make('pm_email')->initial('0'),
 			GDT_Checkbox::make('pm_guests')->initial('0'),

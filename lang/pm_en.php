@@ -23,6 +23,7 @@ return array(
 'cfg_pm_email' => 'Send mail when you recieve a PM?',
 'cfg_pm_guests' => 'Allow guests to PM you?',
 'cfg_signature' => 'Your signature',
+'link_pm_center' => 'Goto PM Overview',
 # Navbar
 'link_settings' => 'Settings',
 'link_trashcan' => 'Trashcan',
@@ -40,6 +41,8 @@ return array(
 # Write
 'ft_pm_write' => 'Write Private Message',
 'msg_pm_sent' => 'Your private message has been sent.',
+'err_pm_limit_reached' => 'You have exceeded your PM limit of %s messages within %s.',
+'err_no_pm_self' => 'You cannot write PM to yourself.',
 # Settings
 'pm_email' => 'E-Mail on PM',
 'pm_level' => 'Userlevel needed to PM you',
@@ -53,8 +56,15 @@ return array(
 'btn_move' => 'Move to folder',
 'msg_pm_deleted' => 'There were %s PM deleted in total.',
 'err_pm_folder' => 'PM folder could not be found.',
+'err_pm' => 'This PM could not be found.',
 'pm_sent' => 'Sent, %s',
 'pm_received' => 'Received, %s',
+# PM
+'from_user' => 'From',
+'to_user' => 'To',
+'delete' => 'Delete',
+'reply' => 'Reply',
+'quote' => 'Quote',
 ################################################
 'pm_welcome_title' => 'Welcome to %s',
 'pm_welcome_message' => '
@@ -66,4 +76,23 @@ We hope you enjoy the site and your sessions.
 Kind Regards
 The %2$s Team',
 ################################################
+'msg_pm_mail_sent' => 'We have also sent an email to %s.',
+'mail_subj_pm' => '%s: PM from %s',
+'mail_body_pm' => '
+Hello %s, 
+
+The user %s has sent you a private message on %s.
+
+Title: %s
+
+=======================================================
+
+%s
+
+=======================================================
+
+You can delete this message with one click: %s
+
+Kind Regards
+The %3$s Team',
 );

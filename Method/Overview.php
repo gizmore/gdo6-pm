@@ -71,4 +71,5 @@ final class Overview extends Method
 			return $this->message('msg_pm_moved', [$affected, $folder->displayName()]);
 		}
 	}
+	
 }

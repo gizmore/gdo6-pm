@@ -15,7 +15,6 @@ use GDO\DB\GDT_String;
 use GDO\User\GDO_UserSettingBlob;
 use GDO\User\GDT_User;
 use GDO\User\GDO_User;
-use GDO\Date\GDT_Timestamp;
 
 final class GDO_PM extends GDO # implements GDT_Searchable
 {
@@ -32,8 +31,8 @@ final class GDO_PM extends GDO # implements GDT_Searchable
 			GDT_DeletedAt::make('pm_deleted_at'),
 			GDT_DateTime::make('pm_read_at'),
 			GDT_User::make('pm_owner')->notNull(),
-			GDT_User::make('pm_from')->cascadeNull(),
-			GDT_User::make('pm_to')->notNull(),
+		    GDT_User::make('pm_from')->cascadeNull()->label('from_user'),
+		    GDT_User::make('pm_to')->notNull()->cascadeNull()->label('to_user'),
 			GDT_Object::make('pm_folder')->table(GDO_PMFolder::table())->notNull(),
 			GDT_Object::make('pm_parent')->table(GDO_PM::table())->cascadeNull(),
 			GDT_Object::make('pm_other')->table(GDO_PM::table())->cascadeNull(),
@@ -118,7 +117,6 @@ final class GDO_PM extends GDO # implements GDT_Searchable
 	#############
 	### HREFs ###
 	#############
-// 	public function display_show() { return $this->display('pm_title'); }
 	public function href_show() { return href('PM', 'Read', "&id={$this->getID()}"); }
 	public function href_delete() { return href('PM', 'Overview', "&delete=1&rbx[{$this->getID()}]=1"); }
 	public function href_reply() { return href('PM', 'Write', '&reply='.$this->getID()); }

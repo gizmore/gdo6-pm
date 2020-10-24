@@ -109,13 +109,9 @@ final class Write extends MethodForm
 	
 	public function validateCanSend(GDT_Form $form, GDT_User $user, $value)
 	{
-		if ($value === null)
-		{
-			return $this->error('err_not_null');
-		}
 		if ($value->getID() === GDO_User::current()->getID())
 		{
-			return $this->error('err_no_pm_self');
+		    return $user->error('err_no_pm_self');
 		}
 		return true;
 	}
@@ -165,8 +161,9 @@ final class Write extends MethodForm
 		if ($this->pmTo)
 		{
 			$pmTo = $this->pmTo;
-			EMailOnPM::deliver($pmTo);
+			$response = EMailOnPM::deliver($pmTo);
 			GDT_Hook::callWithIPC('PMSent', $pmTo);
+			return $response;
 		}
 	}
 }

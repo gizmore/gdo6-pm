@@ -23,6 +23,7 @@ return array(
 'cfg_pm_email' => 'Sie möchten per Email bei einer neuen PN benachrichtigt werden?',
 'cfg_pm_guests' => 'Gästen erlauben Ihnen eine PN zu schreiben?',
 'cfg_signature' => 'Ihre Signatur',
+'link_pm_center' => 'Zur PN Übersicht',
 # Navbar
 'link_settings' => 'Einstellungen',
 'link_trashcan' => 'Mülleimer',
@@ -40,6 +41,8 @@ return array(
 # Write
 'ft_pm_write' => 'Private Nachricht verfassen',
 'msg_pm_sent' => 'Ihre private Nachricht wurde gesendet.',
+'err_pm_limit_reached' => 'Sie haben Ihr PN Limit von %s Nachrichten innerhalb %s erreicht.',
+'err_no_pm_self' => 'Sie können sich selbst keine PN schreiben.',
 # Settings
 'pm_email' => 'Email bei Pn?',
 'pm_level' => 'Benötigter Nutzerlevel um Ihnen eine PN zu schreiben',
@@ -53,8 +56,15 @@ return array(
 'btn_move' => 'In Ordner verschieben',
 'msg_pm_deleted' => 'Es wurden %s PN geöschtet.',
 'err_pm_folder' => 'Der PN Ordner konnte nicht gefunden werden.',
+'err_pm' => 'Die PN konnte nicht gefunden werden.',
 'pm_sent' => 'Gesendet, %s',
 'pm_received' => 'Empfangen, %s',
+# PM
+'from_user' => 'Von',
+'to_user' => 'An',
+'delete' => 'Löschen',
+'reply' => 'Antworten',
+'quote' => 'Zitieren',
 ################################################
 'pm_welcome_title' => 'Willkommen auf %s',
 'pm_welcome_message' => '
@@ -66,4 +76,23 @@ Wir hoffen Du hast Spass mit dieser Webseite.
 Viele Grüße
 Das %2$s Team',
 ################################################
+'msg_pm_mail_sent' => 'We have also sent an email to %s.',
+'mail_subj_pm' => '%s: PM from %s',
+'mail_body_pm' => '
+Hello %s,
+    
+The user %s has sent you a private message on %s.
+    
+Title: %s
+    
+=======================================================
+    
+%s
+    
+=======================================================
+    
+You can delete this message with one click: %s
+    
+Kind Regards
+The %3$s Team',
 );
