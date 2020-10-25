@@ -8,6 +8,15 @@ use GDO\Table\MethodQueryList;
 use GDO\User\GDO_User;
 use GDO\Util\Common;
 
+/**
+ * Display a PM folder.
+ * 
+ * @author gizmore
+ * @version 6.10
+ * @since 5.03
+ *
+ * @see GDO_PMFolder
+ */
 final class Folder extends MethodQueryList
 {
 	public function gdoTable() { return GDO_PM::table(); }
@@ -53,6 +62,7 @@ final class Folder extends MethodQueryList
 	public function gdoDecorateList(GDT_List $list)
 	{
 		$list->title($this->folder->display('pmf_name'));
-		$list->href(href('PM', 'Overview'));
+		$list->href(href('PM', 'Overview', '&folder=' . $this->folder->getID()));
 	}
+	
 }

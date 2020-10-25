@@ -65,6 +65,7 @@ return array(
 'delete' => 'Löschen',
 'reply' => 'Antworten',
 'quote' => 'Zitieren',
+'show' => 'Anzeigen',
 ################################################
 'pm_welcome_title' => 'Willkommen auf %s',
 'pm_welcome_message' => '

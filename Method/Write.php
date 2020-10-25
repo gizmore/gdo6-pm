@@ -42,11 +42,13 @@ final class Write extends MethodForm
 		if ($module->cfgIsPMLimited())
 		{
 			$limit = $module->cfgLimitForUser($user);
-			$cut = Application::$TIME - $module->cfgLimitTimeout();
-			$sent = GDO_PM::table()->countWhere("pm_from={$user->getID()} and pm_sent_at>$cut");
+			$cutTime = Application::$TIME - $module->cfgLimitTimeout();
+			$cut = Time::getDate($cutTime);
+			$uid = $user->getID();
+			$sent = GDO_PM::table()->countWhere("pm_owner!={$uid} AND pm_from={$uid} and pm_sent_at>'$cut'");
 			if ($sent >= $limit)
 			{
-				return $this->pmNavbar()->add($this->error('err_pm_limit_reached', [$limit, Time::displayAgeTS($cut)]));
+			    return $this->pmNavbar()->add($this->error('err_pm_limit_reached', [$limit, Time::displayAgeTS($cutTime)]));
 			}
 		}
 		
