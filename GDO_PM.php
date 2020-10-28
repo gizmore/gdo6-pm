@@ -16,7 +16,14 @@ use GDO\User\GDO_UserSettingBlob;
 use GDO\User\GDT_User;
 use GDO\User\GDO_User;
 
-final class GDO_PM extends GDO # implements GDT_Searchable
+/**
+ * A PM entity.
+ * 
+ * @author gizmore
+ * @version 6.10
+ * @since 3.05
+ */
+final class GDO_PM extends GDO
 {
 	public function gdoCached() { return false; }
 	
@@ -32,7 +39,7 @@ final class GDO_PM extends GDO # implements GDT_Searchable
 			GDT_DateTime::make('pm_read_at'),
 			GDT_User::make('pm_owner')->notNull(),
 		    GDT_User::make('pm_from')->cascadeNull()->label('from_user'),
-		    GDT_User::make('pm_to')->notNull()->cascadeNull()->label('to_user'),
+		    GDT_User::make('pm_to')->cascadeNull()->label('to_user'),
 			GDT_Object::make('pm_folder')->table(GDO_PMFolder::table())->notNull(),
 			GDT_Object::make('pm_parent')->table(GDO_PM::table())->cascadeNull(),
 			GDT_Object::make('pm_other')->table(GDO_PM::table())->cascadeNull(),
@@ -150,4 +157,5 @@ final class GDO_PM extends GDO # implements GDT_Searchable
 		}
 		return $cache;
 	}
+
 }

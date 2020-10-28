@@ -4,6 +4,13 @@ namespace GDO\PM;
 use GDO\Date\Time;
 use GDO\User\GDO_User;
 
+/**
+ * Install INBOX/OUTBOX and BOT USER.
+ * 
+ * @author gizmore
+ * @version 6.10
+ * @since 3.05
+ */
 final class PMInstall
 {
 	public static function install(Module_PM $module)
@@ -16,14 +23,15 @@ final class PMInstall
 	{
 		if (!GDO_PMFolder::table()->countWhere('true'))
 		{
-			GDO_PMFolder::blank(['pmf_name' => 'INBOX'])->insert();
-			GDO_PMFolder::blank(['pmf_name' => 'OUTBOX'])->insert();
+		    $systemID = GDO_User::system()->getID();
+			GDO_PMFolder::blank(['pmf_name' => 'INBOX', 'pmf_user' => $systemID])->insert();
+			GDO_PMFolder::blank(['pmf_name' => 'OUTBOX', 'pmf_user' => $systemID])->insert();
 		}
 	}
 	
 	private static function installPMBotID(Module_PM $module)
 	{
-		if (!($user = $module->cfgBotUser()))
+		if (!$module->cfgBotUser())
 		{
 			if ($module->cfgOwnBot())
 			{
@@ -57,4 +65,5 @@ final class PMInstall
 		$user->insert();
 		$module->saveConfigVar('pm_bot_uid', $user->getID());
 	}
+	
 }

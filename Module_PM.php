@@ -17,7 +17,6 @@ use GDO\User\GDT_Username;
 use GDO\User\GDO_User;
 use GDO\UI\GDT_Card;
 use GDO\UI\GDT_Link;
-use GDO\UI\GDT_Divider;
 
 final class Module_PM extends GDO_Module
 {

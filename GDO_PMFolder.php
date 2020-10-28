@@ -4,10 +4,18 @@ namespace GDO\PM;
 use GDO\Core\GDO;
 use GDO\DB\GDT_AutoInc;
 use GDO\DB\GDT_Int;
-use GDO\DB\GDT_Name;
 use GDO\User\GDT_User;
 use GDO\User\GDO_User;
+use GDO\UI\GDT_Title;
 
+/**
+ * A PM folder.
+ * There are two default folders that are shared in DB. 1 and 2 / Inbox and Outbox.
+ * 
+ * @author gizmore
+ * @version 6.10
+ * @since 3.05
+ */
 final class GDO_PMFolder extends GDO
 {
 	# Constants
@@ -21,8 +29,8 @@ final class GDO_PMFolder extends GDO
 	{
 		return array(
 			GDT_AutoInc::make('pmf_id'),
-			GDT_User::make('pmf_user'),
-			GDT_Name::make('pmf_name')->notNull(),
+			GDT_User::make('pmf_user')->notNull(),
+			GDT_Title::make('pmf_name')->notNull(),
 			GDT_Int::make('pmf_count')->unsigned()->initial('0')->label('count'),
 		);
 	}
