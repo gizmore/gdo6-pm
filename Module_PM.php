@@ -50,7 +50,7 @@ final class Module_PM extends GDO_Module
 		return array(
 			GDT_String::make('pm_re')->initial('RE: '),
 			GDT_Int::make('pm_limit')->initial('5')->unsigned()->min(0)->max(10000),
-			GDT_Duration::make('pm_limit_timeout')->initial(Time::ONE_HOUR*16),
+			GDT_Duration::make('pm_limit_timeout')->initial('16h'),
 			GDT_Int::make('pm_max_folders')->initial('0')->unsigned(),
 			GDT_Checkbox::make('pm_for_guests')->initial('1'),
 			GDT_Checkbox::make('pm_captcha')->initial('0'),
