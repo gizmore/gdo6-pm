@@ -2,10 +2,10 @@
 use GDO\PM\GDO_PM;
 use GDO\UI\GDT_Button;
 use GDO\UI\GDT_HTML;
-use GDO\User\GDO_UserSettingBlob;
 use GDO\UI\GDT_Card;
 use GDO\Profile\GDT_ProfileLink;
-$pm instanceof GDO_PM;
+
+/** @var $pm GDO_PM **/
 
 $creator = $pm->getSender();
 

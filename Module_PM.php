@@ -3,7 +3,6 @@ namespace GDO\PM;
 
 use GDO\Core\GDO_Module;
 use GDO\Date\GDT_Duration;
-use GDO\Date\Time;
 use GDO\PM\Method\Write;
 use GDO\UI\GDT_Bar;
 use GDO\DB\GDT_Checkbox;
@@ -26,6 +25,7 @@ final class Module_PM extends GDO_Module
 	public function getClasses() { return array('GDO\PM\GDO_PMFolder', 'GDO\PM\GDO_PM'); }
 	public function onLoadLanguage() { $this->loadLanguage('lang/pm'); }
 	public function onInstall() { PMInstall::install($this); }
+	public function getDependencies() { return ['Account']; }
 	
 	##############
 	### Config ###

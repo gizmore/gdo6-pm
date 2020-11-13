@@ -4,8 +4,8 @@ namespace GDO\PM;
 use GDO\Mail\Mail;
 use GDO\UI\GDT_Link;
 use GDO\User\GDO_User;
-use GDO\User\GDO_UserSetting;
 use GDO\Core\GDT_Success;
+use GDO\Account\Module_Account;
 
 /**
  * Sends Email on PM.
@@ -19,7 +19,7 @@ final class EMailOnPM
 	public static function deliver(GDO_PM $pm)
 	{
 		$receiver = $pm->getReceiver();
-		if (GDO_UserSetting::userGet($receiver, 'pm_email')->getValue())
+		if (Module_PM::instance()->userSettingValue($receiver, 'pm_email'))
 		{
 			if ($receiver->getMail())
 			{
@@ -35,7 +35,7 @@ final class EMailOnPM
 		$email = new Mail();
 		$email->setSender(GWF_BOT_EMAIL);
 		$email->setSenderName(GWF_BOT_NAME);
-		if (GDO_UserSetting::userGet($sender, 'user_allow_email'))
+		if (Module_Account::instance()->userSettingValue($sender, 'user_allow_email'))
 		{
 			$email->setReturn($sender->getMail());
 		}

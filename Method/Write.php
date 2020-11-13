@@ -111,10 +111,13 @@ final class Write extends MethodForm
 	
 	public function validateCanSend(GDT_Form $form, GDT_User $user, $value)
 	{
-		if ($value->getID() === GDO_User::current()->getID())
-		{
-		    return $user->error('err_no_pm_self');
-		}
+	    if ($value)
+	    {
+    		if ($value->getID() === GDO_User::current()->getID())
+    		{
+    		    return $user->error('err_no_pm_self');
+    		}
+	    }
 		return true;
 	}
 	
