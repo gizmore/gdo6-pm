@@ -4,7 +4,6 @@ namespace GDO\PM;
 use GDO\Core\GDO_Module;
 use GDO\Date\GDT_Duration;
 use GDO\PM\Method\Write;
-use GDO\UI\GDT_Bar;
 use GDO\DB\GDT_Checkbox;
 use GDO\DB\GDT_Int;
 use GDO\UI\GDT_Message;
@@ -16,13 +15,24 @@ use GDO\User\GDT_Username;
 use GDO\User\GDO_User;
 use GDO\UI\GDT_Card;
 use GDO\UI\GDT_Link;
+use GDO\UI\GDT_Page;
 
+/**
+ * Private messaging module.
+ * - Welcome PM
+ * - EmailOnPM
+ * - Folders
+ * 
+ * @author gizmore
+ * @version 6.10
+ * @since 6.04
+ */
 final class Module_PM extends GDO_Module
 {
 	##############
 	### Module ###
 	##############
-	public function getClasses() { return array('GDO\PM\GDO_PMFolder', 'GDO\PM\GDO_PM'); }
+	public function getClasses() { return [GDO_PMFolder::class, GDO_PM::class]; }
 	public function onLoadLanguage() { $this->loadLanguage('lang/pm'); }
 	public function onInstall() { PMInstall::install($this); }
 	public function getDependencies() { return ['Account']; }
@@ -32,22 +42,22 @@ final class Module_PM extends GDO_Module
 	##############
 	public function getUserSettings()
 	{
-		return array(
+		return [
 		    GDT_Link::make('link_pm_center')->href(href('PM', 'Overview')),
 			GDT_Level::make('pm_level')->initial('0')->notNull()->label('pm_level'),
 			GDT_Checkbox::make('pm_email')->initial('0'),
 			GDT_Checkbox::make('pm_guests')->initial('0'),
-		);
+		];
 	}
 	public function getUserSettingBlobs()
 	{
-		return array(
+    	return [
 			GDT_Message::make('signature')->max(4096)->label('signature'),
-		);
+    	];
 	}
 	public function getConfig()
 	{
-		return array(
+		return [
 			GDT_String::make('pm_re')->initial('RE: '),
 			GDT_Int::make('pm_limit')->initial('5')->unsigned()->min(0)->max(10000),
 			GDT_Duration::make('pm_limit_timeout')->initial('16h'),
@@ -65,7 +75,8 @@ final class Module_PM extends GDO_Module
 			GDT_Int::make('pm_fname_len')->initial(GDT_Username::LENGTH)->max(GDT_Name::LENGTH),
 			GDT_Checkbox::make('pm_delete')->initial('1'),
 			GDT_Int::make('pm_limit_per_level')->initial('1000000')->unsigned(),
-		);
+		    GDT_Checkbox::make('pm_right_bar')->initial('1'),
+		];
 	}
 	public function cfgRE() { return $this->getConfigValue('pm_re'); }
 	public function cfgIsPMLimited() { return $this->cfgLimitTimeout() >= 0; }
@@ -94,6 +105,7 @@ final class Module_PM extends GDO_Module
 		$level = $user->getLevel();
 		return $min + floor($level / $this->cfgLimitPerLevel());
 	}
+	public function cfgRightBar() { return $this->getConfigValue('pm_right_bar'); }
 	
 	#############
 	### Hooks ###
@@ -125,12 +137,22 @@ final class Module_PM extends GDO_Module
 	##############
 	### Navbar ###
 	##############
-	public function hookRightBar(GDT_Bar $navbar)
+	public function onInitSidebar()
 	{
-		if (GDO_User::current()->isAuthenticated())
-		{
-			$this->templatePHP('rightbar.php', ['navbar' => $navbar]);
-		}
+// 	    if ($this->cfgRightBar())
+	    {
+    		if (GDO_User::current()->isAuthenticated())
+    		{
+    		    $user = GDO_User::current();
+    		    $count = GDO_PM::countUnread($user);
+    		    $button = GDT_Link::make('btn_pm')->href(href('PM', 'Overview'));
+    		    if ($count > 0)
+    		    {
+    		        $button->label('btn_pm_unread', [$count]);
+    		    }
+    		    GDT_Page::$INSTANCE->rightNav->addField($button);
+    		}
+	    }
 	}
 	
 }
