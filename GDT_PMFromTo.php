@@ -14,8 +14,10 @@ final class GDT_PMFromTo extends GDT
 		return Module_PM::instance()->templatePHP('cell_pmfromto.php', ['field'=>$this, 'pm'=>$this->gdo]);
 	}
 	
-	public function renderFilter()
+	public function renderFilter($f)
 	{
-		return Module_PM::instance()->templatePHP('filter_pmfromto.php', ['field'=>$this, 'pm'=>$this->gdo]);
+		return Module_PM::instance()->
+		templatePHP('filter_pmfromto.php', ['field' => $this, 'pm' => $this->gdo, 'f' => $f]);
 	}
+	
 }

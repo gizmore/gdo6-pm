@@ -48,18 +48,16 @@ final class Write extends MethodForm
 			$sent = GDO_PM::table()->countWhere("pm_owner!={$uid} AND pm_from={$uid} and pm_sent_at>'$cut'");
 			if ($sent >= $limit)
 			{
-			    return $this->pmNavbar()->add($this->error('err_pm_limit_reached', [$limit, Time::displayAgeTS($cutTime)]));
+			    return $this->error('err_pm_limit_reached', [$limit, Time::displayAgeTS($cutTime)]);
 			}
 		}
 		
-		$result = $this->pmNavbar();
-		
 		if ($this->reply)
 		{
-			$result->add(Read::make()->pmRead($this->reply));
+			return Read::make()->pmRead($this->reply);
 		}
 		
-		return $result->add(parent::execute());
+		return parent::execute();
 	}
 	
 	public function createForm(GDT_Form $form)

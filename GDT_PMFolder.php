@@ -1,20 +1,21 @@
 <?php
 namespace GDO\PM;
 
-use GDO\Form\GDT_Select;
 use GDO\User\GDO_User;
+use GDO\DB\GDT_ObjectSelect;
 
 /**
  * A PM folder
  * @author gizmore
  */
-final class GDT_PMFolder extends GDT_Select
+final class GDT_PMFolder extends GDT_ObjectSelect
 {
 	public function __construct()
 	{
 		$this->name('folder');
 		$this->label('folder');
 		$this->icon('folder');
+		$this->table(GDO_PMFolder::table());
 	}
 	
 	public function user(GDO_User $user)
@@ -29,8 +30,9 @@ final class GDT_PMFolder extends GDT_Select
 		$choices = [];
 		foreach (GDO_PMFolder::getFolders($user->getID()) as $folder)
 		{
-			$choices[$folder->getID()] = $folder->getName();
+			$choices[$folder->getID()] = $folder;
 		}
 		return $choices;
 	}
+	
 }

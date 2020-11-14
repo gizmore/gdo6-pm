@@ -51,7 +51,7 @@ final class GDO_PMFolder extends GDO
 		{
 			$folders = array_merge(
 				GDO_PMFolder::getDefaultFolders(),
-				self::table()->select('*')->where('pmf_user='.quote($userid))->exec()->fetchAllObjects()
+				self::table()->select()->where('pmf_user='.quote($userid))->exec()->fetchAllObjects()
 			);
 		}
 		return $folders;

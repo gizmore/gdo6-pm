@@ -22,6 +22,7 @@ return array(
 'cfg_pm_level' => 'Required userlevel to PM you',
 'cfg_pm_email' => 'Send mail when you recieve a PM?',
 'cfg_pm_guests' => 'Allow guests to PM you?',
+'div_user_textual_settings' => 'Textual settings',
 'cfg_signature' => 'Your signature',
 'link_pm_center' => 'Goto PM Overview',
 # Navbar

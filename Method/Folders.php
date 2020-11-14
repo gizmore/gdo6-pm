@@ -13,7 +13,12 @@ final class Folders extends MethodTable
 	public function isPaginated() { return false; }
 	public function isUserRequired() { return true; }
 	
-	public function getHeaders()
+	public function gdoTable()
+	{
+	    return GDO_PMFolder::table();
+	}
+	
+	public function gdoHeaders()
 	{
 		$table = GDO_PMFolder::table();
 		return array(
@@ -22,9 +27,14 @@ final class Folders extends MethodTable
 		);
 	}
 	
+	protected function setupTitlePrefix()
+	{
+	}
+	
 	public function getResult()
 	{
 		$folders = GDO_PMFolder::getFolders(GDO_User::current()->getID());
 		return new ArrayResult($folders, GDO_PMFolder::table());
 	}
+	
 }

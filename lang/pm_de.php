@@ -22,6 +22,7 @@ return array(
 'cfg_pm_level' => 'Benötigter Nutzerlevel um Ihnen eine PN zu senden',
 'cfg_pm_email' => 'Sie möchten per Email bei einer neuen PN benachrichtigt werden?',
 'cfg_pm_guests' => 'Gästen erlauben Ihnen eine PN zu schreiben?',
+'div_user_textual_settings' => 'Text Einstellungen',
 'cfg_signature' => 'Ihre Signatur',
 'link_pm_center' => 'Zur PN Übersicht',
 # Navbar

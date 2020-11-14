@@ -3,10 +3,10 @@ namespace GDO\PM\Method;
 
 use GDO\PM\GDO_PM;
 use GDO\PM\GDO_PMFolder;
-use GDO\Table\GDT_List;
 use GDO\Table\MethodQueryList;
 use GDO\User\GDO_User;
-use GDO\Util\Common;
+use GDO\Table\GDT_Table;
+use GDO\PM\GDT_PMFolder;
 
 /**
  * Display a PM folder.
@@ -22,11 +22,16 @@ final class Folder extends MethodQueryList
 	public function gdoTable() { return GDO_PM::table(); }
 
 	public function isUserRequired() { return true; }
-	public function isQuicksorted() { return true; }
-	public function isQuicksearchable() { return true; }
 	
-	public function defaultOrderField() { return 'pm_sent_at'; }
-	public function defaultOrderDirAsc() { return false; }
+	public function getDefaultOrder() { return 'pm_sent_at'; }
+	public function getDefaultOrderDir() { return false; }
+	
+	public function gdoParameters()
+	{
+	    return [
+	        GDT_PMFolder::make('folder')->initial('1')->user(GDO_User::current())->notNull(),
+	    ];
+	}
 	
 	/**
 	 * @var GDO_PMFolder
@@ -35,34 +40,35 @@ final class Folder extends MethodQueryList
 	
 	public function init()
 	{
-		$this->folder = GDO_PMFolder::table()->find(Common::getRequestInt('folder', 1));
+		$this->folder = $this->gdoParameterValue('folder');
 	}
 	
-	public function gdoFilters()
+	public function gdoHeaders()
 	{
 		$table = GDO_PM::table();
-		return array(
+		return [
 		    $table->gdoColumn('pm_to'),
 		    $table->gdoColumn('pm_from'),
 		    $table->gdoColumn('pm_sent_at'),
 		    $table->gdoColumn('pm_title'),
 		    $table->gdoColumn('pm_message'),
-		);
+		];
 	}
 	
-	public function gdoQuery()
+	public function getQuery()
 	{
 		$user = GDO_User::current();
-		return GDO_PM::table()->select('*')->
+		return GDO_PM::table()->select()->
 		where('pm_owner='.$user->getID())->
 		where('pm_folder='.$this->folder->getID())->
 		where("pm_deleted_at IS NULL");
 	}
 	
-	public function gdoDecorateList(GDT_List $list)
-	{
-		$list->title($this->folder->display('pmf_name'));
+    protected function setupTitle(GDT_Table $table)
+    {
+        $list = $table;
+	    $list->title('pm_folder', [$this->folder->display('pmf_name'), $table->pagemenu->numItems]);
 		$list->href(href('PM', 'Overview', '&folder=' . $this->folder->getID()));
-	}
+    }
 	
 }

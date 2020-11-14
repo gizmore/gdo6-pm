@@ -16,9 +16,9 @@ final class Read extends Method
 	{
 		if (!($pm = GDO_PM::getByIdAndUser(Common::getRequestString('id'), GDO_User::current())))
 		{
-			return $this->pmNavbar()->add($this->error('err_pm'));
+			return $this->error('err_pm');
 		}
-		return $this->pmNavbar()->add($this->pmRead($pm));
+		return $this->pmRead($pm);
 	}
 	
 	public function pmRead(GDO_PM $pm)
@@ -26,7 +26,7 @@ final class Read extends Method
 		if (!$pm->isRead())
 		{
 			$pm->saveVar('pm_read_at', Time::getDate());
-			$pm->getOtherPM()->saveVar('pm_other_read', '1');
+			$pm->getOtherPM()->saveVar('pm_other_read_at', Time::getDate());
 		}
 		return $this->templatePHP('card_pm.php', ['pm' => $pm]);
 	}

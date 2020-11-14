@@ -2,4 +2,4 @@
 <input
  name="f[<?= $field->name?>]"
  type="text"
- value="<?= html($field->filterValue()); ?>" />
+ value="<?= html($field->filterVar()); ?>" />

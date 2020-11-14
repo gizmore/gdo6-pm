@@ -9,6 +9,7 @@ use GDO\PM\GDO_PMFolder;
 use GDO\PM\PMMethod;
 use GDO\User\GDO_User;
 use GDO\Util\Common;
+
 /**
  * Main PM Functionality / Navigation
  * @author gizmore
@@ -23,21 +24,21 @@ final class Overview extends Method
 	{
 		if (isset($_REQUEST['delete']))
 		{
-			return $this->pmNavbar()->add($this->onDelete())->add($this->pmOverview());
+			return $this->onDelete()->add($this->pmOverview());
 		}
 		elseif (isset($_REQUEST['move']))
 		{
-			return $this->pmNavbar()->add($this->onMove())->add($this->pmOverview());
+		    return $this->onMove()->add($this->pmOverview());
 		}
-		return $this->pmNavbar()->add($this->pmOverview());
+		return $this->pmOverview();
 	}
 	
 	private function pmOverview()
 	{
-		$tVars = array(
+	    $tVars = [
 			'folder' => Folder::make()->execMethod(),
 			'folders' => Folders::make()->execMethod(),
-		);
+	    ];
 		return $this->templatePHP('overview.php', $tVars);
 	}
 	

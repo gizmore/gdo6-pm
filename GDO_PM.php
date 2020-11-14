@@ -9,7 +9,6 @@ use GDO\DB\GDT_Object;
 use GDO\Date\GDT_DateTime;
 use GDO\Date\Time;
 use GDO\Core\GDT_Template;
-use GDO\DB\GDT_Checkbox;
 use GDO\UI\GDT_Message;
 use GDO\DB\GDT_String;
 use GDO\User\GDT_User;
@@ -44,8 +43,8 @@ final class GDO_PM extends GDO
 			GDT_Object::make('pm_other')->table(GDO_PM::table())->cascadeNull(),
 			GDT_String::make('pm_title')->notNull()->label('title'),
 			GDT_Message::make('pm_message')->notNull(),
-			GDT_Checkbox::make('pm_other_read')->initial('0'),
-			GDT_Checkbox::make('pm_other_deleted')->initial('0'),
+			GDT_DateTime::make('pm_other_read_at'),
+		    GDT_DateTime::make('pm_other_deleted_at'),
 		);
 	}
 	
@@ -60,6 +59,7 @@ final class GDO_PM extends GDO
 	public function isRead() { return $this->getVar('pm_read_at') !== null; }
 	public function displayDate() { return Time::displayDate($this->getVar('pm_sent_at')); }
 	public function getTitle() { return $this->getVar('pm_title'); }
+	public function displayTitle() { return $this->display('pm_title'); }
 	public function displayMessage() { return $this->getValue('pm_message'); }
 	public function displaySignature() { return Module_PM::instance()->userSetting($this->getSender(), 'signature')->renderCell(); }
 	
