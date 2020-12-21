@@ -1,8 +1,8 @@
 <?php
 namespace GDO\PM\Test;
 
-use PHPUnit\Framework\TestCase;
 use GDO\Tests\MethodTest;
+use GDO\Tests\TestCase;
 
 final class PNTest extends TestCase
 {

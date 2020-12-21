@@ -60,6 +60,7 @@ return array(
 'err_pm' => 'This PM could not be found.',
 'pm_sent' => 'Sent, %s',
 'pm_received' => 'Received, %s',
+'pm_folder' => 'Folder %s with %s message(s)',
 # PM
 'from_user' => 'From',
 'to_user' => 'To',

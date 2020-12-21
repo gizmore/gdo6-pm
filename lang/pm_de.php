@@ -60,6 +60,7 @@ return array(
 'err_pm' => 'Die PN konnte nicht gefunden werden.',
 'pm_sent' => 'Gesendet, %s',
 'pm_received' => 'Empfangen, %s',
+'pm_folder' => 'Ordner %s mit %s Nachricht(en)',
 # PM
 'from_user' => 'Von',
 'to_user' => 'An',
