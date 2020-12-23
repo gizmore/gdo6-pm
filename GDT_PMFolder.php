@@ -10,7 +10,7 @@ use GDO\DB\GDT_ObjectSelect;
  */
 final class GDT_PMFolder extends GDT_ObjectSelect
 {
-	public function __construct()
+	protected function __construct()
 	{
 		$this->name('folder');
 		$this->label('folder');
