@@ -10,9 +10,9 @@ use GDO\Date\GDT_DateTime;
 use GDO\Date\Time;
 use GDO\Core\GDT_Template;
 use GDO\UI\GDT_Message;
-use GDO\DB\GDT_String;
 use GDO\User\GDT_User;
 use GDO\User\GDO_User;
+use GDO\UI\GDT_Title;
 
 /**
  * A PM entity.
@@ -41,7 +41,7 @@ final class GDO_PM extends GDO
 			GDT_Object::make('pm_folder')->table(GDO_PMFolder::table())->notNull(),
 			GDT_Object::make('pm_parent')->table(GDO_PM::table())->cascadeNull(),
 			GDT_Object::make('pm_other')->table(GDO_PM::table())->cascadeNull(),
-			GDT_String::make('pm_title')->notNull()->label('title'),
+			GDT_Title::make('pm_title')->notNull(),
 			GDT_Message::make('pm_message')->notNull(),
 			GDT_DateTime::make('pm_other_read_at'),
 		    GDT_DateTime::make('pm_other_deleted_at'),
