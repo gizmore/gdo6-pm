@@ -30,10 +30,13 @@ $html = <<<EOT
 EOT;
 $card->content(GDT_HTML::withHTML($html));
 
-$card->actions()->addFields(array(
-	GDT_Button::make('quote')->gdo($pm)->icon('quote'),
-	GDT_Button::make('reply')->gdo($pm)->icon('reply'),
-	GDT_Button::make('delete')->gdo($pm)->icon('delete'),
-));
+if (!isset($noactions))
+{
+    $card->actions()->addFields(array(
+    	GDT_Button::make('quote')->gdo($pm)->icon('quote'),
+    	GDT_Button::make('reply')->gdo($pm)->icon('reply'),
+    	GDT_Button::make('delete')->gdo($pm)->icon('delete'),
+    ));
+}
 
 echo $card->renderCell();

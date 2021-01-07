@@ -139,7 +139,7 @@ final class Module_PM extends GDO_Module
 	##############
 	public function onInitSidebar()
 	{
-// 	    if ($this->cfgRightBar())
+	    if ($this->cfgRightBar())
 	    {
     		if (GDO_User::current()->isAuthenticated())
     		{

@@ -18,6 +18,7 @@ use GDO\User\GDO_User;
 use GDO\Util\Common;
 use GDO\Util\Strings;
 use GDO\Form\GDT_Validator;
+use GDO\UI\GDT_Container;
 
 final class Write extends MethodForm
 {
@@ -62,19 +63,23 @@ final class Write extends MethodForm
 	
 	public function createForm(GDT_Form $form)
 	{
-		list($username, $title, $message) = $this->initialValues();
+		list($username, $title, $message) = $this->initialValues($form);
 		$table = GDO_PM::table();
 		$form->addFields(array(
 			GDT_User::make('pm_write_to')->notNull()->initial($username),
 			GDT_Validator::make()->validator('pm_write_to', [$this, 'validateCanSend']),
 			$table->gdoColumn('pm_title')->initial($title),
 			$table->gdoColumn('pm_message')->initial($message),
-			GDT_Submit::make(),
+		    GDT_Container::makeWith(
+    			GDT_Submit::make(),
+    		    GDT_Submit::make('btn_preview')
+		    )->horizontal(),
 			GDT_AntiCSRF::make(),
 		));
+// 		$form->getField('pm_message')->initial($message);
 	}
 	
-	private function initialValues()
+	private function initialValues(GDT_Form $form)
 	{
 		$username = null; $title = null; $message = null;
 		if ($this->reply)
@@ -89,7 +94,7 @@ final class Write extends MethodForm
 			$title = $re . ' ' . trim(Strings::substrFrom($title, $re));
 		}
 		
-		if (isset($_REQUEST['quote']))
+		elseif (isset($_REQUEST['quote']))
 		{
 			$msg = $this->reply->getVar('pm_message');
 			$by = $this->reply->getSender()->displayName();
@@ -98,6 +103,12 @@ final class Write extends MethodForm
 			$at = t('quote_at', [$at]);
 			$message = sprintf('<blockquote><span class="quote-by">%s</span><span class="quote-from">%s</span>%s</blockquote>', $by, $at, $msg);
 		}
+		
+// 		else
+// 		{
+// 		    $message = $form->getFormVar('pm_message');
+// 		}
+		
 		
 		if (isset($_REQUEST['username']))
 		{
@@ -161,12 +172,40 @@ final class Write extends MethodForm
 	private $pmTo;
 	public function afterExecute()
 	{
-		if ($this->pmTo)
-		{
-			$pmTo = $this->pmTo;
-			$response = EMailOnPM::deliver($pmTo);
-			GDT_Hook::callWithIPC('PMSent', $pmTo);
-			return $response;
-		}
+	    if ($this->pressedButton === 'submit')
+	    {
+    		if ($this->pmTo)
+    		{
+    			$pmTo = $this->pmTo;
+    			$response = EMailOnPM::deliver($pmTo);
+    			GDT_Hook::callWithIPC('PMSent', $pmTo);
+    			return $response;
+    		}
+	    }
 	}
+	
+	###############
+	### Preview ###
+	###############
+	public function onSubmit_btn_preview(GDT_Form $form)
+	{
+	    $parent = $this->reply;
+	    $from = GDO_User::current();
+	    $to = $form->getFormValue('pm_write_to');
+	    $title = $form->getFormVar('pm_title');
+	    $message = $form->getFormVar('pm_message');
+	    $pm = GDO_PM::blank(array(
+	        'pm_parent' => $parent ? $parent->getPMFor($to)->getID() : null,
+	        'pm_owner' => $to->getID(),
+	        'pm_from' => $from->getID(),
+	        'pm_to' => $to->getID(),
+	        'pm_folder' => GDO_PMFolder::INBOX,
+	        'pm_title' => $title,
+	        'pm_message' => $message,
+	    ));
+	    $card = $this->templatePHP('card_pm.php', ['pm' => $pm, 'noactions' => true]);
+	    
+	    return parent::renderPage()->add($card);
+	}
+
 }
