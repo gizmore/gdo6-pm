@@ -46,11 +46,8 @@ final class PMInstall
 	
 	private static function installAdminAsPMBot(Module_PM $module)
 	{
-		$users = GDO_User::withPermission('admin');
-		if ($user = @$users[0])
-		{
-			$module->saveConfigVar('pm_bot_uid', $user->getID());
-		}
+	    $user = GDO_User::system();
+		$module->saveConfigVar('pm_bot_uid', $user->getID());
 	}
 	
 	private static function installPMBot(Module_PM $module)
