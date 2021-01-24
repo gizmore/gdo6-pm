@@ -13,6 +13,9 @@ final class Folders extends MethodTable
 	public function isPaginated() { return false; }
 	public function isUserRequired() { return true; }
 	
+	public function getDefaultOrder() { return 'pmf_id'; }
+	public function getDefaultOrderDir() { return true; }
+	
 	public function gdoTable()
 	{
 	    return GDO_PMFolder::table();
@@ -22,6 +25,7 @@ final class Folders extends MethodTable
 	{
 		$table = GDO_PMFolder::table();
 		return array(
+		    $table->gdoColumn('pmf_id')->hidden(),
 			GDT_Template::make()->template('PM', 'folder_link.php')->label('folder'),
 			$table->gdoColumn('pmf_count'),
 		);

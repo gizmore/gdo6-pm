@@ -97,7 +97,7 @@ final class GDO_PMFolder extends GDO
 			$fid = self::INBOX;
 			$inbox = self::blank(array(
 				'pmf_id' => $fid,
-				'pmf_uid' => $uid,
+				'pmf_user' => $uid,
 				'pmf_name' => t('inbox_name'),
 				'pmf_count' => GDO_PM::table()->countWhere("pm_folder=$fid AND pm_owner=$uid AND pm_deleted_at IS NULL"),
 			));
@@ -114,7 +114,7 @@ final class GDO_PMFolder extends GDO
 			$fid = self::OUTBOX;
 			$outbox = self::blank(array(
 				'pmf_id' => $fid,
-				'pmf_uid' => $uid,
+				'pmf_user' => $uid,
 				'pmf_name' => t('outbox_name'),
 				'pmf_count' => GDO_PM::table()->countWhere("pm_folder=$fid AND pm_owner=$uid AND pm_deleted_at IS NULL"),
 			));

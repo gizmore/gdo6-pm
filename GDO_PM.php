@@ -149,7 +149,7 @@ final class GDO_PM extends GDO
 	##############
 	public static function countUnread(GDO_User $user)
 	{
-		if (null !== ($cache = $user->tempGet('gdo_pm_unread')))
+		if (null === ($cache = $user->tempGet('gdo_pm_unread')))
 		{
 			$cache = self::table()->countWhere("pm_to={$user->getID()} AND pm_read_at IS NULL");
 			$user->tempSet('gdo_pm_unread', $cache);
