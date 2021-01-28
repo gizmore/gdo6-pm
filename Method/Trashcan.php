@@ -78,7 +78,7 @@ final class Trashcan extends MethodQueryTable
 		if ($ids = $this->getRBX())
 		{
 			$user = GDO_User::current();
-			GDO_PM::table()->deleteWhere("pm_owner={$user->getID()} AND pm_id IN($ids)")->exec();
+			GDO_PM::table()->deleteWhere("pm_owner={$user->getID()} AND pm_id IN($ids)");
 			$affected = Database::instance()->affectedRows();
 			return $this->message('msg_pm_destroyed', [$affected]);
 		}
@@ -99,7 +99,7 @@ final class Trashcan extends MethodQueryTable
 	public function onEmpty()
 	{
 		$user = GDO_User::current();
-		GDO_PM::table()->deleteWhere("pm_owner={$user->getID()} AND pm_deleted_at IS NOT NULL")->exec();
+		GDO_PM::table()->deleteWhere("pm_owner={$user->getID()} AND pm_deleted_at IS NOT NULL");
 		$affected = Database::instance()->affectedRows();
 		return $this->message('msg_pm_destroyed', [$affected]);
 	}
