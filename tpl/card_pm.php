@@ -8,25 +8,28 @@ use GDO\UI\GDT_Title;
 use GDO\UI\GDT_Container;
 
 /** @var $pm GDO_PM **/
+/** @var $noactions bool **/
 
 $creator = $pm->getSender();
 
 $card = GDT_Card::make('pm-'.$pm->getID());
+$card->gdo($pm);
 
-$card->avatar(GDT_ProfileLink::make()->forUser($creator)->withAvatar());
-$card->title(GDT_Title::make()->labelRaw($pm->displayTitle()));
-$card->subtitle(GDT_Container::make()->addFields([
-    GDT_ProfileLink::make()->forUser($creator)->withNickname(),
-    $pm->gdoColumn('pm_sent_at'),
-]));
+$card->creatorHeader(GDT_Title::make()->titleEscaped(false)->titleRaw($pm->displayTitle()), 'pm_from');
+
+// $card->avatar(GDT_ProfileLink::make()->forUser($creator)->withAvatar());
+// $card->title(GDT_Title::make()->labelRaw($pm->displayTitle()));
+// $card->subtitle(GDT_Container::make()->addFields([
+//     GDT_ProfileLink::make()->forUser($creator)->withNickname(),
+//     $pm->gdoColumn('pm_sent_at'),
+// ]));
 
 $html = <<<EOT
 <div>
-  <h3>{$pm->displayTitle()}<h3>
-  <hr/>
   <div>{$pm->displayMessage()}</div>
   <hr/>
   <div>{$pm->displaySignature()}</div>
+</div>
 EOT;
 $card->content(GDT_HTML::withHTML($html));
 

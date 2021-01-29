@@ -31,6 +31,7 @@ return array(
 'link_write_pm' => 'PN verfassen',
 # Trashcan
 'name_trashcan' => 'Mülleimer',
+'table_pm_trashcan' => '%s PN sind im Mülleimer',
 'inbox_name' => 'Eingehend',
 'outbox_name' => 'Gesendet',
 'btn_restore' => 'Wiederherstellen',
@@ -68,6 +69,8 @@ return array(
 'reply' => 'Antworten',
 'quote' => 'Zitieren',
 'show' => 'Anzeigen',
+'pm_fromto_from' => 'Von: %s',
+'pm_fromto_to' => 'An: %s',
 ################################################
 'pm_welcome_title' => 'Willkommen auf %s',
 'pm_welcome_message' => '

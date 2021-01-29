@@ -31,6 +31,7 @@ return array(
 'link_write_pm' => 'Write New PM',
 # Trashcan
 'name_trashcan' => 'Trashcan',
+'table_pm_trashcan' => '%s PM are in your trashcan',
 'inbox_name' => 'Incoming',
 'outbox_name' => 'Sent',
 'btn_restore' => 'Restore',
@@ -68,6 +69,8 @@ return array(
 'reply' => 'Reply',
 'quote' => 'Quote',
 'show' => 'Show',
+'pm_fromto_from' => 'From: %s',
+'pm_fromto_to' => 'To: %s',
 ################################################
 'pm_welcome_title' => 'Welcome to %s',
 'pm_welcome_message' => '

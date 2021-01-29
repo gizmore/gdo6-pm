@@ -32,17 +32,17 @@ final class Trashcan extends MethodQueryTable
 	{
 		if (isset($_REQUEST['delete']))
 		{
-			return $this->pmNavbar()->add($this->onDelete())->add(parent::execute());
+			return $this->onDelete()->add(parent::execute());
 		}
 		elseif (isset($_REQUEST['restore']))
 		{
-			return $this->pmNavbar()->add($this->onRestore())->add(parent::execute());
+			return $this->onRestore()->add(parent::execute());
 		}
 		elseif (isset($_REQUEST['trash']))
 		{
-			return $this->pmNavbar()->add($this->onEmpty())->add(parent::execute());
+			return $this->onEmpty()->add(parent::execute());
 		}
-		return $this->pmNavbar()->add(parent::execute());
+		return parent::execute();
 	}
 	
 	public function gdoHeaders()

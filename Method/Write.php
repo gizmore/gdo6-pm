@@ -19,6 +19,7 @@ use GDO\Util\Common;
 use GDO\Util\Strings;
 use GDO\Form\GDT_Validator;
 use GDO\UI\GDT_Container;
+use GDO\Core\Website;
 
 final class Write extends MethodForm
 {
@@ -55,7 +56,7 @@ final class Write extends MethodForm
 		
 		if ($this->reply)
 		{
-			return Read::make()->pmRead($this->reply);
+			return Read::make()->pmRead($this->reply)->add(parent::execute());
 		}
 		
 		return parent::execute();
@@ -68,8 +69,8 @@ final class Write extends MethodForm
 		$form->addFields(array(
 			GDT_User::make('pm_write_to')->notNull()->initial($username),
 			GDT_Validator::make()->validator('pm_write_to', [$this, 'validateCanSend']),
-			$table->gdoColumn('pm_title')->initial($title),
-			$table->gdoColumn('pm_message')->initial($message),
+			$table->gdoColumnCopy('pm_title')->initial($title),
+			$table->gdoColumnCopy('pm_message')->initial($message),
 		    GDT_Container::makeWith(
     			GDT_Submit::make(),
     		    GDT_Submit::make('btn_preview')
@@ -91,10 +92,10 @@ final class Write extends MethodForm
 			# Title
 			$title = $this->reply->getVar('pm_title');
 			$re = Module_PM::instance()->cfgRE();
-			$title = $re . ' ' . trim(Strings::substrFrom($title, $re));
+			$title = $re . ' ' . trim(Strings::substrFrom($title, $re, $title));
 		}
 		
-		elseif (isset($_REQUEST['quote']))
+		if (isset($_REQUEST['quote']))
 		{
 			$msg = $this->reply->getVar('pm_message');
 			$by = $this->reply->getSender()->displayName();
@@ -133,7 +134,7 @@ final class Write extends MethodForm
 	public function formValidated(GDT_Form $form)
 	{
 		$this->deliver(GDO_User::current(), $form->getFormValue('pm_write_to'), $form->getFormVar('pm_title'), $form->getFormVar('pm_message'), $this->reply);
-		return $this->message('msg_pm_sent');
+		return Website::redirectMessage('msg_pm_sent', null, href('PM', 'Overview'));
 	}
 	
 	public function deliver(GDO_User $from, GDO_User $to, $title, $message, GDO_PM $parent=null)
@@ -157,7 +158,7 @@ final class Write extends MethodForm
 				'pm_title' => $title,
 				'pm_message' => $message,
 				'pm_other' => $pmFrom->getID(),
-				'pm_other_read' => '1',
+				'pm_other_read_at' => Time::getDate(),
 		))->insert();
 		$pmFrom->saveVar('pm_other', $pmTo->getID());
 		$to->tempUnset('gdo_pm_unread');

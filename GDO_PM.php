@@ -133,7 +133,7 @@ final class GDO_PM extends GDO
 	##############
 	public static function updateOtherDeleted()
 	{
-		self::table()->update()->set("pm_other_deleted=1")->
+		self::table()->update()->set("pm_other_deleted_at=".quote(Time::getDate()))->
 		where(" ( SELECT pm_id FROM ( SELECT * FROM gdo_pm ) b WHERE gdo_pm.pm_other = b.pm_id ) IS NULL ")->
 		orWhere(" ( SELECT pm_deleted_at FROM ( SELECT * FROM gdo_pm ) b WHERE b.pm_id = gdo_pm.pm_other ) IS NOT NULL ")->exec();
 	}
