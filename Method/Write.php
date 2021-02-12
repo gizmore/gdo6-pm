@@ -71,13 +71,12 @@ final class Write extends MethodForm
 			GDT_Validator::make()->validator('pm_write_to', [$this, 'validateCanSend']),
 			$table->gdoColumnCopy('pm_title')->initial($title),
 			$table->gdoColumnCopy('pm_message')->initial($message),
-		    GDT_Container::makeWith(
-    			GDT_Submit::make(),
-    		    GDT_Submit::make('btn_preview')
-		    )->horizontal(),
 			GDT_AntiCSRF::make(),
 		));
-// 		$form->getField('pm_message')->initial($message);
+		$form->actions()->addFields([
+			GDT_Submit::make(),
+		    GDT_Submit::make('btn_preview')
+		]);
 	}
 	
 	private function initialValues(GDT_Form $form)
