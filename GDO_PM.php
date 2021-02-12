@@ -13,6 +13,7 @@ use GDO\UI\GDT_Message;
 use GDO\User\GDT_User;
 use GDO\User\GDO_User;
 use GDO\UI\GDT_Title;
+use GDO\DB\GDT_Index;
 
 /**
  * A PM entity.
@@ -45,6 +46,7 @@ final class GDO_PM extends GDO
 			GDT_Message::make('pm_message')->notNull(),
 			GDT_DateTime::make('pm_other_read_at'),
 		    GDT_DateTime::make('pm_other_deleted_at'),
+		    GDT_Index::make('index_pm_read_at')->indexColumns('pm_read_at'),
 		);
 	}
 	
