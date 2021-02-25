@@ -18,8 +18,8 @@ use GDO\User\GDO_User;
 use GDO\Util\Common;
 use GDO\Util\Strings;
 use GDO\Form\GDT_Validator;
-use GDO\UI\GDT_Container;
 use GDO\Core\Website;
+use GDO\UI\GDT_Message;
 
 final class Write extends MethodForm
 {
@@ -96,19 +96,11 @@ final class Write extends MethodForm
 		
 		if (isset($_REQUEST['quote']))
 		{
+			$by = $this->reply->getSender();
+			$at = $this->reply->getVar('pm_sent_at');
 			$msg = $this->reply->getVar('pm_message');
-			$by = $this->reply->getSender()->displayName();
-			$by = t('quote_by', [$by]);
-			$at = tt($this->reply->getVar('pm_sent_at'));
-			$at = t('quote_at', [$at]);
-			$message = sprintf('<blockquote><span class="quote-by">%s</span><span class="quote-from">%s</span>%s</blockquote>', $by, $at, $msg);
+			$message = GDT_Message::quoteMessage($by, $at, $msg);
 		}
-		
-// 		else
-// 		{
-// 		    $message = $form->getFormVar('pm_message');
-// 		}
-		
 		
 		if (isset($_REQUEST['username']))
 		{
