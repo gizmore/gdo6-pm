@@ -31,9 +31,9 @@ final class Folders extends MethodTable
 		);
 	}
 	
-	protected function setupTitlePrefix()
-	{
-	}
+// 	protected function setupTitlePrefix()
+// 	{
+// 	}
 	
 	public function getResult()
 	{
