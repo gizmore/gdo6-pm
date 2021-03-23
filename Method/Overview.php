@@ -33,6 +33,11 @@ final class Overview extends Method
 		return $this->pmOverview();
 	}
 	
+	public function getTitle()
+	{
+	    return t('btn_pm');
+	}
+	
 	private function pmOverview()
 	{
 	    $tVars = [

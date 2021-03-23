@@ -71,6 +71,8 @@ return array(
 'show' => 'Show',
 'pm_fromto_from' => 'From: %s',
 'pm_fromto_to' => 'To: %s',
+# Folders
+'list_pm_folders' => '%s Folders',
 ################################################
 'pm_welcome_title' => 'Welcome to %s',
 'pm_welcome_message' => '
