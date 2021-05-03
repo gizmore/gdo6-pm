@@ -2,15 +2,13 @@
 use GDO\PM\GDO_PM;
 use GDO\UI\GDT_Button;
 use GDO\UI\GDT_HTML;
-use GDO\Profile\GDT_ProfileLink;
 use GDO\UI\GDT_Card;
 use GDO\UI\GDT_Title;
-use GDO\UI\GDT_Container;
 
 /** @var $pm GDO_PM **/
 /** @var $noactions bool **/
 
-$creator = $pm->getSender();
+// $creator = $pm->getSender();
 
 $card = GDT_Card::make('pm-'.$pm->getID());
 $card->gdo($pm);

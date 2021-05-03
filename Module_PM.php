@@ -24,8 +24,8 @@ use GDO\UI\GDT_Page;
  * - Folders
  * 
  * @author gizmore
- * @version 6.10
- * @since 6.04
+ * @version 6.10.1
+ * @since 6.4.0
  */
 final class Module_PM extends GDO_Module
 {
@@ -40,21 +40,6 @@ final class Module_PM extends GDO_Module
 	##############
 	### Config ###
 	##############
-	public function getUserSettings()
-	{
-		return [
-		    GDT_Link::make('link_pm_center')->href(href('PM', 'Overview')),
-			GDT_Level::make('pm_level')->initial('0')->notNull()->label('pm_level'),
-			GDT_Checkbox::make('pm_email')->initial('0'),
-			GDT_Checkbox::make('pm_guests')->initial('0'),
-		];
-	}
-	public function getUserSettingBlobs()
-	{
-    	return [
-			GDT_Message::make('signature')->max(4096)->label('signature'),
-    	];
-	}
 	public function getConfig()
 	{
 		return [
@@ -86,7 +71,7 @@ final class Module_PM extends GDO_Module
 	public function cfgAllowOwnFolders() { return $this->cfgMaxFolders() > 0; }
 	public function cfgGuestPMs() { return $this->getConfigValue('pm_for_guests'); }
 	public function cfgGuestCaptcha() { return $this->getConfigValue('pm_captcha'); }
-	public function cfgEmailOnPM() { return $this->getConfigValue('pm_causes_mail'); }
+	public function cfgEmailOnPM() { return module_enabled('Mail') && $this->getConfigValue('pm_causes_mail'); }
 	public function cfgEmailSender() { return $this->getConfigValue('pm_mail_sender'); }
 	public function cfgBotUserID() { return $this->getConfigVar('pm_bot_uid'); }
 	public function cfgBotUser() { return $this->getConfigValue('pm_bot_uid'); }
@@ -106,6 +91,26 @@ final class Module_PM extends GDO_Module
 		return $min + floor($level / $this->cfgLimitPerLevel());
 	}
 	public function cfgRightBar() { return $this->getConfigValue('pm_right_bar'); }
+	
+	################
+	### Settings ###
+	################
+	public function getUserSettings()
+	{
+	    return [
+	        GDT_Link::make('link_pm_center')->href(href('PM', 'Overview')),
+	        GDT_Level::make('pm_level')->initial('0')->notNull()->label('pm_level'),
+	        GDT_Checkbox::make('pm_email')->initial('1'),
+	        GDT_Checkbox::make('pm_guests')->initial('0'),
+	    ];
+	}
+	
+	public function getUserSettingBlobs()
+	{
+	    return [
+	        GDT_Message::make('signature')->max(4096)->label('signature'),
+	    ];
+	}
 	
 	#############
 	### Hooks ###

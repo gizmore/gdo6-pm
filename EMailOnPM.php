@@ -11,20 +11,24 @@ use GDO\Account\Module_Account;
  * Sends Email on PM.
  * 
  * @author gizmore
- * @version 6.10
- * @since 3.04
+ * @version 6.10.1
+ * @since 3.4.0
  */
 final class EMailOnPM
 {
 	public static function deliver(GDO_PM $pm)
 	{
+	    $module = Module_PM::instance();
 		$receiver = $pm->getReceiver();
-		if (Module_PM::instance()->userSettingValue($receiver, 'pm_email'))
+		if ($module->cfgEmailOnPM())
 		{
-			if ($receiver->getMail())
-			{
-				return self::sendMail($pm, $receiver);
-			}
+    		if ($module->userSettingValue($receiver, 'pm_email'))
+    		{
+    			if ($receiver->hasMail())
+    			{
+    				return self::sendMail($pm, $receiver);
+    			}
+    		}
 		}
 	}
 	
@@ -32,12 +36,12 @@ final class EMailOnPM
 	{
 		$sender = $pm->getSender();
 		
-		$email = new Mail();
-		$email->setSender(GWF_BOT_EMAIL);
-		$email->setSenderName(GWF_BOT_NAME);
+		$email = Mail::botMail();
+
 		if (Module_Account::instance()->userSettingValue($sender, 'user_allow_email'))
 		{
-			$email->setReturn($sender->getMail());
+		    $email->setReturn($sender->getMail());
+		    $email->setReturnName($sender->displayNameLabel());
 		}
 		
 		$sitename = sitename();
