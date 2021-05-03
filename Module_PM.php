@@ -49,7 +49,7 @@ final class Module_PM extends GDO_Module
 			GDT_Int::make('pm_max_folders')->initial('0')->unsigned(),
 			GDT_Checkbox::make('pm_for_guests')->initial('1'),
 			GDT_Checkbox::make('pm_captcha')->initial('0'),
-			GDT_Checkbox::make('pm_causes_mail')->initial('0'),
+			GDT_Checkbox::make('pm_causes_mail')->initial(module_enabled('Mail')?'1':'0'),
 			GDT_User::make('pm_bot_uid')->label('pm_bot_uid')->editable(false),
 			GDT_Checkbox::make('pm_own_bot'),
 			GDT_Int::make('pm_per_page')->initial('20')->unsigned(),
@@ -71,7 +71,7 @@ final class Module_PM extends GDO_Module
 	public function cfgAllowOwnFolders() { return $this->cfgMaxFolders() > 0; }
 	public function cfgGuestPMs() { return $this->getConfigValue('pm_for_guests'); }
 	public function cfgGuestCaptcha() { return $this->getConfigValue('pm_captcha'); }
-	public function cfgEmailOnPM() { return module_enabled('Mail') && $this->getConfigValue('pm_causes_mail'); }
+	public function cfgEmailOnPM() { return $this->getConfigValue('pm_causes_mail'); }
 	public function cfgEmailSender() { return $this->getConfigValue('pm_mail_sender'); }
 	public function cfgBotUserID() { return $this->getConfigVar('pm_bot_uid'); }
 	public function cfgBotUser() { return $this->getConfigValue('pm_bot_uid'); }
