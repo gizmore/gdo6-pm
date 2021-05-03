@@ -12,8 +12,8 @@ use GDO\PM\GDT_PMFolder;
  * Display a PM folder.
  * 
  * @author gizmore
- * @version 6.10
- * @since 5.03
+ * @version 6.10.1
+ * @since 5.3.0
  *
  * @see GDO_PMFolder
  */

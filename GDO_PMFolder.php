@@ -10,11 +10,11 @@ use GDO\UI\GDT_Title;
 
 /**
  * A PM folder.
- * There are two default folders that are shared in DB. 1 and 2 / Inbox and Outbox.
+ * There are two default folders that are shared in DB. Id 1 and 2 - Inbox and Outbox.
  * 
  * @author gizmore
- * @version 6.10
- * @since 3.05
+ * @version 6.10.1
+ * @since 3.5.0
  */
 final class GDO_PMFolder extends GDO
 {
@@ -25,20 +25,20 @@ final class GDO_PMFolder extends GDO
 	###########
 	### GDO ###
 	###########
+	public function memCached() { return false; }
 	public function gdoColumns()
 	{
-		return array(
+		return [
 			GDT_AutoInc::make('pmf_id'),
 			GDT_User::make('pmf_user')->notNull(),
 			GDT_Title::make('pmf_name')->notNull(),
 			GDT_Int::make('pmf_count')->unsigned()->initial('0')->label('count'),
-		);
+		];
 	}
 	public function getID() { return $this->getVar('pmf_id'); }
 	public function getUserID() { return $this->getVar('pmf_user'); }
 	public function getName() { return $this->getVar('pmf_name'); }
 	public function displayName() { return $this->display('pmf_name'); }
-// 	public function isRealFolder() { return $this->getID() > 2; }
 	
 	/**
 	 * @param string $userid
@@ -79,7 +79,6 @@ final class GDO_PMFolder extends GDO
 		}
 	}
 	
-	
 	#######################
 	### Default Folders ###
 	#######################
@@ -95,12 +94,12 @@ final class GDO_PMFolder extends GDO
 		{
 			$uid = GDO_User::current()->getID();
 			$fid = self::INBOX;
-			$inbox = self::blank(array(
+			$inbox = self::blank([
 				'pmf_id' => $fid,
 				'pmf_user' => $uid,
 				'pmf_name' => t('inbox_name'),
 				'pmf_count' => GDO_PM::table()->countWhere("pm_folder=$fid AND pm_owner=$uid AND pm_deleted_at IS NULL"),
-			));
+			]);
 		}
 		return $inbox;
 	}
@@ -112,13 +111,14 @@ final class GDO_PMFolder extends GDO
 		{
 			$uid = GDO_User::current()->getID();
 			$fid = self::OUTBOX;
-			$outbox = self::blank(array(
+			$outbox = self::blank([
 				'pmf_id' => $fid,
 				'pmf_user' => $uid,
 				'pmf_name' => t('outbox_name'),
 				'pmf_count' => GDO_PM::table()->countWhere("pm_folder=$fid AND pm_owner=$uid AND pm_deleted_at IS NULL"),
-			));
+			]);
 		}
 		return $outbox;
 	}
+
 }

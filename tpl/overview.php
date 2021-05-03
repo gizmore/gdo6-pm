@@ -1,4 +1,10 @@
-<section layout="column" layout-gt-md="row" layout-fill flex layout-align="space-around none">
+<?php
+use GDO\Core\GDT_Response;
+
+/** @var $folder GDT_Response **/
+/** @var $folders GDT_Response **/
+?>
+<div>
   <div><?= $folders->render(); ?></div>
   <div><?= $folder->render(); ?></div>
-</section>
+</div>
