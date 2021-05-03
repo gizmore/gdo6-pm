@@ -58,11 +58,16 @@ final class GDO_PM extends GDO
 	##################
 	### Convinient ###
 	##################
+	/**
+	 * @return GDT_Message
+	 */
+	public function messageColumn() { return $this->gdoColumn('pm_message'); }
 	public function isRead() { return $this->getVar('pm_read_at') !== null; }
 	public function displayDate() { return Time::displayDate($this->getVar('pm_sent_at')); }
 	public function getTitle() { return $this->getVar('pm_title'); }
 	public function displayTitle() { return $this->display('pm_title'); }
-	public function displayMessage() { return $this->gdoColumn('pm_message')->renderCell(); }
+	public function displayMessage() { return $this->messageColumn()->renderCell(); }
+	public function getMessage() { return $this->messageColumn()->getVarInput(); }
 	public function displaySignature() { return Module_PM::instance()->userSetting($this->getSender(), 'signature')->renderCell(); }
 	
 	/**

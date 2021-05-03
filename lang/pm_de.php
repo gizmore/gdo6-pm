@@ -45,6 +45,7 @@ return array(
 'msg_pm_sent' => 'Ihre private Nachricht wurde gesendet.',
 'err_pm_limit_reached' => 'Sie haben Ihr PN Limit von %s Nachrichten innerhalb %s erreicht.',
 'err_no_pm_self' => 'Sie können sich selbst keine PN schreiben.',
+'err_only_pm_users' => 'Sie können diesem Nutzer keine PN schreiben.',
 # Settings
 'pm_email' => 'Email bei Pn?',
 'pm_level' => 'Benötigter Nutzerlevel um Ihnen eine PN zu schreiben',

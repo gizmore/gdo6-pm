@@ -19,6 +19,7 @@ use GDO\UI\GDT_Page;
 
 /**
  * Private messaging module.
+ * 
  * - Welcome PM
  * - EmailOnPM
  * - Folders

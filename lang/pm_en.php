@@ -45,6 +45,7 @@ return array(
 'msg_pm_sent' => 'Your private message has been sent.',
 'err_pm_limit_reached' => 'You have exceeded your PM limit of %s messages within %s.',
 'err_no_pm_self' => 'You cannot write PM to yourself.',
+'err_only_pm_users' => 'You cannot PM this user.',
 # Settings
 'pm_email' => 'E-Mail on PM',
 'pm_level' => 'Userlevel needed to PM you',

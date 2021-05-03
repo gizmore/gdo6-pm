@@ -98,7 +98,7 @@ final class Write extends MethodForm
 		{
 			$by = $this->reply->getSender();
 			$at = $this->reply->getVar('pm_sent_at');
-			$msg = $this->reply->getVar('pm_message');
+			$msg = $this->reply->getMessage();
 			$message = GDT_Message::quoteMessage($by, $at, $msg);
 		}
 		
@@ -110,13 +110,17 @@ final class Write extends MethodForm
 		return [$username, $title, $message];
 	}
 	
-	public function validateCanSend(GDT_Form $form, GDT_User $user, $value)
+	public function validateCanSend(GDT_Form $form, GDT_User $user, GDO_User $value)
 	{
 	    if ($value)
 	    {
     		if ($value->getID() === GDO_User::current()->getID())
     		{
     		    return $user->error('err_no_pm_self');
+    		}
+    		if (!$value->isUser())
+    		{
+    		    return $user->error('err_only_pm_users');
     		}
 	    }
 		return true;
