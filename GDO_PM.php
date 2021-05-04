@@ -160,6 +160,7 @@ final class GDO_PM extends GDO
 		{
 			$cache = self::table()->countWhere("pm_to={$user->getID()} AND pm_read_at IS NULL");
 			$user->tempSet('gdo_pm_unread', $cache);
+			$user->recache();
 		}
 		return $cache;
 	}

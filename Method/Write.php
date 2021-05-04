@@ -157,6 +157,7 @@ final class Write extends MethodForm
 		))->insert();
 		$pmFrom->saveVar('pm_other', $pmTo->getID());
 		$to->tempUnset('gdo_pm_unread');
+		$to->recache();
 		
 		# Copy to next func
 		$this->pmTo = $pmTo;
