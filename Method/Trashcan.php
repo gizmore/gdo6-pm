@@ -16,12 +16,20 @@ use GDO\User\GDO_User;
  * Trashcan features restore, delete, and empty bin.
  * 
  * @author gizmore
+ * @version 6.10.1
+ * @since 3.4.0
  */
 final class Trashcan extends MethodQueryTable
 {
 	use PMMethod;
 	
 	public function isUserRequired() { return true; }
+	
+	public function getTitleLangKey()
+	{
+	    return 'table_pm_trashcan';
+	}
+	
 	
 	public function gdoTable()
 	{
@@ -57,17 +65,17 @@ final class Trashcan extends MethodQueryTable
 	public function getQuery()
 	{
 		$user = GDO_User::current();
-		return GDO_PM::table()->select('*')->where('pm_owner='.$user->getID())->where("pm_deleted_at IS NOT NULL");
+		return GDO_PM::table()->select()->where('pm_owner='.$user->getID())->where("pm_deleted_at IS NOT NULL");
 	}
 	
 	public function createTable(GDT_Table $table)
 	{
 		$table->title(t('name_trashcan'));
-		$table->actions()->addFields(array(
+		$table->actions()->addFields([
 			GDT_Submit::make('restore')->label('btn_restore'),
 			GDT_Submit::make('delete')->label('btn_delete'),
 			GDT_Submit::make('trash')->label('btn_empty'),
-		));
+		]);
 	}
 	
 	###############
@@ -99,8 +107,7 @@ final class Trashcan extends MethodQueryTable
 	public function onEmpty()
 	{
 		$user = GDO_User::current();
-		GDO_PM::table()->deleteWhere("pm_owner={$user->getID()} AND pm_deleted_at IS NOT NULL");
-		$affected = Database::instance()->affectedRows();
+		$affected = GDO_PM::table()->deleteWhere("pm_owner={$user->getID()} AND pm_deleted_at IS NOT NULL");
 		return $this->message('msg_pm_destroyed', [$affected]);
 	}
 	

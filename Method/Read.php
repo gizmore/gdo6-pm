@@ -26,6 +26,8 @@ final class Read extends Method
 		if (!$pm->isRead())
 		{
 			$pm->saveVar('pm_read_at', Time::getDate());
+			$owner = $pm->getOwner();
+			$owner->tempUnset('gdo_pm_unread')->recache();
 			$pm->getOtherPM()->saveVar('pm_other_read_at', Time::getDate());
 		}
 		return $this->templatePHP('card_pm.php', ['pm' => $pm]);
