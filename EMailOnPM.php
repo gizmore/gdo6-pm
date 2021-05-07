@@ -5,14 +5,13 @@ use GDO\Mail\Mail;
 use GDO\UI\GDT_Link;
 use GDO\User\GDO_User;
 use GDO\Core\GDT_Success;
-use GDO\Account\Module_Account;
 use GDO\Mail\Module_Mail;
 
 /**
  * Sends Email on PM.
  * 
  * @author gizmore
- * @version 6.10.1
+ * @version 6.10.2
  * @since 3.4.0
  */
 final class EMailOnPM
@@ -52,7 +51,7 @@ final class EMailOnPM
 			$sender->displayNameLabel(),
 			$sitename,
 			$pm->display('pm_title'),
-			$pm->display('pm_message'),
+			$pm->displayMessage(),
 			GDT_Link::anchor(href('PM', 'Delete', "&id={$pm->getID()}&token={$pm->gdoHashcode()}")),
 		)));
 		$email->sendToUser($receiver);
