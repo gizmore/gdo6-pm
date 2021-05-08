@@ -24,11 +24,11 @@ final class Overview extends Method
 	{
 		if (isset($_REQUEST['delete']))
 		{
-			return $this->onDelete()->add($this->pmOverview());
+			return $this->onDelete()->addField($this->pmOverview());
 		}
 		elseif (isset($_REQUEST['move']))
 		{
-		    return $this->onMove()->add($this->pmOverview());
+		    return $this->onMove()->addField($this->pmOverview());
 		}
 		return $this->pmOverview();
 	}

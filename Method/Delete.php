@@ -16,9 +16,9 @@ final class Delete extends Method
 		if ( (!($pm = GDO_PM::getById(Common::getRequestString('pm')))) || 
 				($pm->gdoHashcode() !== Common::getRequestString('token')) )
 		{
-			return $this->pmNavbar()->add($this->error('err_pm'))->add(Overview::make()->execute());
+			return $this->pmNavbar()->addField($this->error('err_pm'))->addField(Overview::make()->execute());
 		}
-		return $this->pmNavbar()->add($this->onDelete($pm))->add(Overview::make()->execute());
+		return $this->pmNavbar()->addField($this->onDelete($pm))->addField(Overview::make()->execute());
 	}
 	
 	public function deletePM(GDO_PM $pm)

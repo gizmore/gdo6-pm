@@ -56,7 +56,8 @@ final class Write extends MethodForm
 		
 		if ($this->reply)
 		{
-			return Read::make()->pmRead($this->reply)->add(parent::execute());
+			return Read::make()->pmRead($this->reply)->
+			addField(parent::execute());
 		}
 		
 		return parent::execute();
@@ -202,7 +203,7 @@ final class Write extends MethodForm
 	    ));
 	    $card = $this->templatePHP('card_pm.php', ['pm' => $pm, 'noactions' => true]);
 	    
-	    return parent::renderPage()->add($card);
+	    return parent::renderPage()->addField($card);
 	}
 
 }

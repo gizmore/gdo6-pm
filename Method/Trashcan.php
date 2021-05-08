@@ -40,15 +40,15 @@ final class Trashcan extends MethodQueryTable
 	{
 		if (isset($_REQUEST['delete']))
 		{
-			return $this->onDelete()->add(parent::execute());
+			return $this->onDelete()->addField(parent::execute());
 		}
 		elseif (isset($_REQUEST['restore']))
 		{
-			return $this->onRestore()->add(parent::execute());
+			return $this->onRestore()->addField(parent::execute());
 		}
 		elseif (isset($_REQUEST['trash']))
 		{
-			return $this->onEmpty()->add(parent::execute());
+			return $this->onEmpty()->addField(parent::execute());
 		}
 		return parent::execute();
 	}
