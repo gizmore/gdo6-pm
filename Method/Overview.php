@@ -41,8 +41,8 @@ final class Overview extends Method
 	private function pmOverview()
 	{
 	    $tVars = [
-			'folder' => Folder::make()->executeWithInit(),
 	        'folders' => Folders::make()->executeWithInit(),
+	        'folder' => Folder::make()->executeWithInit(),
 	    ];
 		return $this->templatePHP('overview.php', $tVars);
 	}

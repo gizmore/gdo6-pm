@@ -7,6 +7,7 @@ use GDO\Table\MethodQueryList;
 use GDO\User\GDO_User;
 use GDO\Table\GDT_Table;
 use GDO\PM\GDT_PMFolder;
+use GDO\Util\Common;
 
 /**
  * Display a PM folder.
@@ -40,7 +41,7 @@ final class Folder extends MethodQueryList
 	
 	public function init()
 	{
-		$this->folder = $this->gdoParameterValue('folder');
+   		$this->folder = $this->gdoParameterValue('folder');
 	}
 	
 	public function gdoHeaders()
@@ -59,9 +60,9 @@ final class Folder extends MethodQueryList
 	{
 		$user = GDO_User::current();
 		return GDO_PM::table()->select()->
-		where('pm_owner='.$user->getID())->
-		where('pm_folder='.$this->folder->getID())->
-		where("pm_deleted_at IS NULL");
+    		where('pm_owner='.$user->getID())->
+    		where('pm_folder='.$this->folder->getID())->
+    		where("pm_deleted_at IS NULL");
 	}
 	
     protected function setupTitle(GDT_Table $table)

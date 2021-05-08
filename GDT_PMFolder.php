@@ -35,4 +35,11 @@ final class GDT_PMFolder extends GDT_ObjectSelect
 		return $choices;
 	}
 	
+	public function toValue($var)
+	{
+	    if ($var === '1') return GDO_PMFolder::getInBox();
+	    elseif ($var === '2') return GDO_PMFolder::getOutBox();
+	    else { return parent::toValue($var); }
+	}
+	
 }

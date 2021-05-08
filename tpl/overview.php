@@ -1,10 +1,8 @@
 <?php
-use GDO\Core\GDT_Response;
-
-/** @var $folder GDT_Response **/
-/** @var $folders GDT_Response **/
+use GDO\PM\Method\Folder;
+use GDO\PM\Method\Folders;
 ?>
 <div>
-  <div><?= $folders->render(); ?></div>
-  <div><?= $folder->render(); ?></div>
+  <div><?= $folders->render() ?></div>
+  <div><?= $folder->render() ?></div>
 </div>

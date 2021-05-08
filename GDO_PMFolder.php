@@ -19,8 +19,8 @@ use GDO\UI\GDT_Title;
 final class GDO_PMFolder extends GDO
 {
 	# Constants
-	const INBOX = 1;
-	const OUTBOX = 2;
+	const INBOX = '1';
+	const OUTBOX = '2';
 	
 	###########
 	### GDO ###
@@ -64,7 +64,7 @@ final class GDO_PMFolder extends GDO
 	 */
 	public static function getByIdAndUser($folderId, GDO_User $user)
 	{
-		$folderId = (int)$folderId;
+		$folderId = $folderId;
 		switch ($folderId)
 		{
 			case self::INBOX: return self::getInBox();
