@@ -7,13 +7,12 @@ use GDO\Table\MethodQueryList;
 use GDO\User\GDO_User;
 use GDO\Table\GDT_Table;
 use GDO\PM\GDT_PMFolder;
-use GDO\Util\Common;
 
 /**
  * Display a PM folder.
  * 
  * @author gizmore
- * @version 6.10.1
+ * @version 6.10.3
  * @since 5.3.0
  *
  * @see GDO_PMFolder
