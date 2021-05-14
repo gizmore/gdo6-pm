@@ -25,7 +25,7 @@ use GDO\UI\GDT_Page;
  * - Folders
  * 
  * @author gizmore
- * @version 6.10.1
+ * @version 6.10.3
  * @since 6.4.0
  */
 final class Module_PM extends GDO_Module
@@ -118,7 +118,7 @@ final class Module_PM extends GDO_Module
 	#############
 	public function hookProfileCard(GDO_User $user, GDT_Card $card)
 	{
-		$linkPM = GDT_Link::make()->href(href('PM', 'Write', '&username='.$user->getName()))->label(t('link_write_pm'));
+		$linkPM = GDT_Link::make()->href(href('PM', 'Write', '&username='.$user->displayNameLabel()))->label(t('link_write_pm'));
 		$card->actions()->addField($linkPM);
 	}
 	

@@ -1,6 +1,7 @@
 <?php
-use GDO\PM\Method\Folder;
-use GDO\PM\Method\Folders;
+use GDO\Core\GDT_Response;
+/** @var $folder GDT_Response **/
+/** @var $folders GDT_Response **/
 ?>
 <div>
   <div><?= $folders->render() ?></div>

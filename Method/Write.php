@@ -105,13 +105,16 @@ final class Write extends MethodForm
 		
 		if (isset($_REQUEST['username']))
 		{
-			$username = GDO_User::getByName($_REQUEST['username'])->getID();
+		    if ($user = GDO_User::getByName($_REQUEST['username']))
+		    {
+		        $username = $user->getID();
+		    }
 		}
 		
 		return [$username, $title, $message];
 	}
 	
-	public function validateCanSend(GDT_Form $form, GDT_User $user, GDO_User $value)
+	public function validateCanSend(GDT_Form $form, GDT_User $user, GDO_User $value=null)
 	{
 	    if ($value)
 	    {

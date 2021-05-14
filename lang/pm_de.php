@@ -38,6 +38,7 @@ return array(
 'btn_empty' => 'Leeren',
 'btn_delete' => 'Löschen',
 'btn_pm' => 'Private Nachrichten',
+'btn_pm_unread' => 'Private Nachrichten [%s]',
 'msg_pm_destroyed' => '%s PN wurde(n) gelöscht.',
 'msg_pm_restored' => '%s PN wurde(n) wiederhergestellt.',
 # Write

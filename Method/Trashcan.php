@@ -11,12 +11,13 @@ use GDO\Table\GDT_Table;
 use GDO\Table\MethodQueryTable;
 use GDO\UI\GDT_Link;
 use GDO\User\GDO_User;
+use GDO\UI\GDT_Title;
 
 /**
  * Trashcan features restore, delete, and empty bin.
  * 
  * @author gizmore
- * @version 6.10.1
+ * @version 6.10.3
  * @since 3.4.0
  */
 final class Trashcan extends MethodQueryTable
@@ -29,7 +30,6 @@ final class Trashcan extends MethodQueryTable
 	{
 	    return 'table_pm_trashcan';
 	}
-	
 	
 	public function gdoTable()
 	{
@@ -57,15 +57,18 @@ final class Trashcan extends MethodQueryTable
 	{
 		return [
 			GDT_RowNum::make(),
-			GDT_PMFromTo::make(),
-			GDT_Link::make('show'),
+		    GDT_PMFromTo::make(),
+		    GDT_Title::make('pm_title'),
+		    GDT_Link::make('show'),
 		];
 	}
 	
 	public function getQuery()
 	{
 		$user = GDO_User::current();
-		return GDO_PM::table()->select()->where('pm_owner='.$user->getID())->where("pm_deleted_at IS NOT NULL");
+		return GDO_PM::table()->select()->
+		    where('pm_owner='.$user->getID())->
+		    where("pm_deleted_at IS NOT NULL");
 	}
 	
 	public function createTable(GDT_Table $table)
