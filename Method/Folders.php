@@ -14,7 +14,6 @@ final class Folders extends MethodTable
 	public function isUserRequired() { return true; }
 	
 	public function getDefaultOrder() { return 'pmf_id'; }
-	public function getDefaultOrderDir() { return true; }
 	
 	public function gdoTable()
 	{

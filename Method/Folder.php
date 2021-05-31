@@ -23,8 +23,7 @@ final class Folder extends MethodQueryList
 
 	public function isUserRequired() { return true; }
 	
-	public function getDefaultOrder() { return 'pm_sent_at'; }
-	public function getDefaultOrderDir() { return false; }
+	public function getDefaultOrder() { return 'pm_sent_at DESC'; }
 	
 	public function gdoParameters()
 	{
