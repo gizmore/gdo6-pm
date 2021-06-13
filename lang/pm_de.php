@@ -73,6 +73,8 @@ return array(
 'show' => 'Anzeigen',
 'pm_fromto_from' => 'Von: %s',
 'pm_fromto_to' => 'An: %s',
+# Delete
+'mtitle_pm_delete' => 'PN löschen',
 # Folders
 'list_pm_folders' => '%s Ordner',
 ################################################
