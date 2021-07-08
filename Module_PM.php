@@ -122,7 +122,7 @@ final class Module_PM extends GDO_Module
 		$card->actions()->addField($linkPM);
 	}
 	
-	public function hookUserActivated(GDO_User $user)
+	public function hookUserActivated(GDO_User $user, GDO_UserActivation $activation=null)
 	{
 		if ($this->cfgWelcomePM())
 		{
