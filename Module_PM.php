@@ -4,6 +4,7 @@ namespace GDO\PM;
 use GDO\Core\GDO_Module;
 use GDO\Date\GDT_Duration;
 use GDO\PM\Method\Write;
+use GDO\Register\GDO_UserActivation;
 use GDO\DB\GDT_Checkbox;
 use GDO\DB\GDT_Int;
 use GDO\UI\GDT_Message;
