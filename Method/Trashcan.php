@@ -17,7 +17,7 @@ use GDO\UI\GDT_Title;
  * Trashcan features restore, delete, and empty bin.
  * 
  * @author gizmore
- * @version 6.10.3
+ * @version 6.10.6
  * @since 3.4.0
  */
 final class Trashcan extends MethodQueryTable
@@ -26,9 +26,9 @@ final class Trashcan extends MethodQueryTable
 	
 	public function isUserRequired() { return true; }
 	
-	public function getTitleLangKey()
+	public function getTitle()
 	{
-	    return 'table_pm_trashcan';
+	    return t('list_pm_trashcan', [$this->table->getResult()->numRows()]);
 	}
 	
 	public function gdoTable()
@@ -76,7 +76,7 @@ final class Trashcan extends MethodQueryTable
 		$table->title(t('name_trashcan'));
 		$table->actions()->addFields([
 			GDT_Submit::make('restore')->label('btn_restore'),
-			GDT_Submit::make('delete')->label('btn_delete'),
+			GDT_Submit::make('delete')->bu->label('btn_delete'),
 			GDT_Submit::make('trash')->label('btn_empty'),
 		]);
 	}
@@ -93,6 +93,7 @@ final class Trashcan extends MethodQueryTable
 			$affected = Database::instance()->affectedRows();
 			return $this->message('msg_pm_destroyed', [$affected]);
 		}
+		return $this->error('err_nothing_happened');
 	}
 	
 	public function onRestore()
@@ -105,6 +106,7 @@ final class Trashcan extends MethodQueryTable
 			GDO_PM::updateOtherDeleted();
 			return $this->message('msg_pm_restored', [$affected]);
 		}
+		return $this->error('err_nothing_happened');
 	}
 	
 	public function onEmpty()

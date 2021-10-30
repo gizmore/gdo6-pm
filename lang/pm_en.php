@@ -31,7 +31,6 @@ return array(
 'link_write_pm' => 'Write New PM',
 # Trashcan
 'name_trashcan' => 'Trashcan',
-'table_pm_trashcan' => '%s PM are in your trashcan',
 'inbox_name' => 'Incoming',
 'outbox_name' => 'Sent',
 'btn_restore' => 'Restore',
@@ -107,4 +106,7 @@ You can delete this message with one click: %s
 
 Kind Regards
 The %3$s Team',
+    
+# v6.10.6
+'list_pm_trashcan' => '0 messages in the trashcan',
 );

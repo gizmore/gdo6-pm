@@ -31,7 +31,6 @@ return array(
 'link_write_pm' => 'PN verfassen',
 # Trashcan
 'name_trashcan' => 'Mülleimer',
-'table_pm_trashcan' => '%s PN sind im Mülleimer',
 'inbox_name' => 'Eingehend',
 'outbox_name' => 'Gesendet',
 'btn_restore' => 'Wiederherstellen',
@@ -107,4 +106,7 @@ You can delete this message with one click: %s
     
 Kind Regards
 The %3$s Team',
+
+# v6.10.6
+'list_pm_trashcan' => '0 Nachrichten im Mülleimer',
 );
