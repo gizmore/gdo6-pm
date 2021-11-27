@@ -9,7 +9,6 @@ use GDO\PM\GDO_PMFolder;
 use GDO\PM\PMMethod;
 use GDO\User\GDO_User;
 use GDO\Util\Common;
-use GDO\Core\Application;
 
 /**
  * Main PM Functionality / Navigation
@@ -56,7 +55,7 @@ final class Overview extends Method
 		if ($ids = $this->getRBX())
 		{
 			$user = GDO_User::current();
-			$now = Application::$MICROTIME;
+			$now = Time::getDate();
 			GDO_PM::table()->update()->set("pm_deleted_at='$now', pm_read_at='$now'")->where("pm_owner={$user->getID()} AND pm_id IN($ids)")->exec();
 			$affected = Database::instance()->affectedRows();
 			GDO_PM::updateOtherDeleted();

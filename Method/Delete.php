@@ -6,8 +6,12 @@ use GDO\Date\Time;
 use GDO\PM\GDO_PM;
 use GDO\PM\PMMethod;
 use GDO\Util\Common;
-use GDO\Core\Application;
 
+/**
+ * Delete a PM via tokenhash from mail.
+ * 
+ * @author gizmore
+ */
 final class Delete extends Method
 {
 	use PMMethod;
@@ -24,10 +28,13 @@ final class Delete extends Method
 	
 	public function deletePM(GDO_PM $pm)
 	{
-		$t = Application::$MICROTIME;
-	    $pm->saveVar('pm_read_at', $t);
-		$pm->saveVar('pm_deleted_at', $t);
+		$t = Time::getDate();
+		$pm->saveVars([
+			'pm_read_at' => $t,
+			'pm_deleted_at' => $t,
+		]);
 		$pm->getOtherPM()->saveVar('pm_other_deleted_at', $t);
 		return $this->message('msg_pm_deleted');
 	}
+	
 }

@@ -14,7 +14,6 @@ use GDO\User\GDT_User;
 use GDO\User\GDO_User;
 use GDO\UI\GDT_Title;
 use GDO\DB\GDT_Index;
-use GDO\Core\Application;
 use GDO\Date\GDT_Timestamp;
 
 /**
@@ -142,7 +141,7 @@ final class GDO_PM extends GDO
 	##############
 	public static function updateOtherDeleted()
 	{
-		self::table()->update()->set("pm_other_deleted_at=".Application::$MICROTIME)->
+		self::table()->update()->set("pm_other_deleted_at=".quote(Time::getDate()))->
 		where(" ( SELECT pm_id FROM ( SELECT * FROM gdo_pm ) b WHERE gdo_pm.pm_other = b.pm_id ) IS NULL ")->
 		orWhere(" ( SELECT pm_deleted_at FROM ( SELECT * FROM gdo_pm ) b WHERE b.pm_id = gdo_pm.pm_other ) IS NOT NULL ")->exec();
 	}
