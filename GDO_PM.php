@@ -14,13 +14,15 @@ use GDO\User\GDT_User;
 use GDO\User\GDO_User;
 use GDO\UI\GDT_Title;
 use GDO\DB\GDT_Index;
+use GDO\Core\Application;
+use GDO\Date\GDT_Timestamp;
 
 /**
  * A PM entity.
  * 
  * @author gizmore
- * @version 6.10
- * @since 3.05
+ * @version 6.11.0
+ * @since 3.5.0
  */
 final class GDO_PM extends GDO
 {
@@ -44,8 +46,8 @@ final class GDO_PM extends GDO
 			GDT_Object::make('pm_other')->table(GDO_PM::table())->cascadeNull(),
 			GDT_Title::make('pm_title')->notNull(),
 			GDT_Message::make('pm_message')->notNull(),
-			GDT_DateTime::make('pm_other_read_at'),
-		    GDT_DateTime::make('pm_other_deleted_at'),
+			GDT_Timestamp::make('pm_other_read_at'),
+			GDT_Timestamp::make('pm_other_deleted_at'),
 		    GDT_Index::make('index_pm_read_at')->indexColumns('pm_read_at'),
 		);
 	}
@@ -140,7 +142,7 @@ final class GDO_PM extends GDO
 	##############
 	public static function updateOtherDeleted()
 	{
-		self::table()->update()->set("pm_other_deleted_at=".quote(Time::getDate()))->
+		self::table()->update()->set("pm_other_deleted_at=".Application::$MICROTIME)->
 		where(" ( SELECT pm_id FROM ( SELECT * FROM gdo_pm ) b WHERE gdo_pm.pm_other = b.pm_id ) IS NULL ")->
 		orWhere(" ( SELECT pm_deleted_at FROM ( SELECT * FROM gdo_pm ) b WHERE b.pm_id = gdo_pm.pm_other ) IS NOT NULL ")->exec();
 	}

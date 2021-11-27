@@ -6,6 +6,7 @@ use GDO\Date\Time;
 use GDO\PM\GDO_PM;
 use GDO\PM\PMMethod;
 use GDO\Util\Common;
+use GDO\Core\Application;
 
 final class Delete extends Method
 {
@@ -23,9 +24,10 @@ final class Delete extends Method
 	
 	public function deletePM(GDO_PM $pm)
 	{
-	    $pm->saveVar('pm_read_at', Time::getDate());
-		$pm->saveVar('pm_deleted_at', Time::getDate());
-		$pm->getOtherPM()->saveVar('pm_other_deleted_at', Time::getDate());
+		$t = Application::$MICROTIME;
+	    $pm->saveVar('pm_read_at', $t);
+		$pm->saveVar('pm_deleted_at', $t);
+		$pm->getOtherPM()->saveVar('pm_other_deleted_at', $t);
 		return $this->message('msg_pm_deleted');
 	}
 }
