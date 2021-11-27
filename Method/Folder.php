@@ -39,6 +39,7 @@ final class Folder extends MethodQueryList
 	
 	public function init()
 	{
+		parent::init();
    		$this->folder = $this->gdoParameterValue('folder');
 	}
 	
