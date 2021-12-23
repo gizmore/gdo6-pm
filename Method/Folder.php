@@ -23,7 +23,7 @@ final class Folder extends MethodQueryList
 
 	public function isUserRequired() { return true; }
 	
-	public function getDefaultOrder() { return 'pm_sent_at DESC'; }
+	public function getDefaultOrder() { return 'gdo_pm.pm_sent_at DESC'; }
 	
 	public function gdoParameters()
 	{
@@ -59,9 +59,9 @@ final class Folder extends MethodQueryList
 	{
 		$user = GDO_User::current();
 		return GDO_PM::table()->select()->
-    		where('pm_owner='.$user->getID())->
-    		where('pm_folder='.$this->folder->getID())->
-    		where("pm_deleted_at IS NULL");
+    		where('gdo_pm.pm_owner='.$user->getID())->
+    		where('gdo_pm.pm_folder='.$this->folder->getID())->
+    		where("gdo_pm.pm_deleted_at IS NULL");
 	}
 	
     protected function setupTitle(GDT_Table $table)
